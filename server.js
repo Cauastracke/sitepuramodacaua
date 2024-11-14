@@ -19,10 +19,30 @@ app.get('/produtos', (req, res) => {
 app.get('/produto-individual', (req, res) => {
   res.sendFile(__dirname + '/produto-individual-template.html');
 });
-// Responde a pagina do carrinho
 
+// Responde a pagina do carrinho
 app.get('/carrinho', (req, res) => {
   res.sendFile(__dirname + '/carrinho.html');
+});
+
+// Responde a pagina do checkout
+app.get('/checkout', (req, res) => {
+  res.sendFile(__dirname + '/checkout.html');
+});
+
+// Páagina 404
+app.get('/404', (req, res) => {
+  res.sendFile(__dirname + '/404.html');
+});
+
+// Responde a pagina register
+app.get('/register', (req, res) => {
+  res.sendFile(__dirname + '/register.html');
+});
+
+// Responde a pagina login
+app.get('/login', (req, res) => {
+  res.sendFile(__dirname + '/login.html');
 });
 
 app.listen(PORT, () => {
