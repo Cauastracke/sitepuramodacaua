@@ -45,6 +45,11 @@ app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/login.html');
 });
 
+// Responde a pagina perfil
+app.get('/perfil', (req, res) => {
+  res.sendFile(__dirname + '/perfil.html');
+});
+
 app.listen(PORT, () => {
   console.log(`servidor rodando na porta http://localhost:${PORT}/`);
 });
