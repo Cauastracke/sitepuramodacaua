@@ -1,4 +1,5 @@
 CREATE DATABASE puramoda;
+USE puramoda;
 
 CREATE TABLE Cliente (
     ClienteID INT AUTO_INCREMENT PRIMARY KEY,
@@ -13,7 +14,7 @@ CREATE TABLE Produto (
     ProdutoID INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
     Descricao VARCHAR(255) NOT NULL,
-    Tipo VARCHAR(20)
+    Tipo VARCHAR(20),
     Tamanho VARCHAR(4) NOT NULL,
     Preco DECIMAL(10, 2) NOT NULL
 );

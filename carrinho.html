@@ -718,17 +718,17 @@
 	<!-- Active JS -->
 	<script src="js/active.js"></script>
 
-	<script>
+	<!-- <script>
 	const sessionId = 'unique-session-id'; // Replace with a unique session identifier
 
 		// Fetch products
 		fetch('http://localhost:3000/produtos')
 		  .then(response => response.json())
-		  .then(Produto => {
-			const productsDiv = document.getElementById('Produto');
+		  .then(product => {
+			const productsDiv = document.getElementById('product');
 			products.forEach(product => {
 			  const productDiv = document.createElement('div');
-			  productDiv.className = 'Produto';
+			  productDiv.className = 'product';
 			  productDiv.innerHTML = `
 				<h3>${Produto.Nome}</h3>
 				<p>Price: $${Produto.Preco}</p>
@@ -740,12 +740,12 @@
 	
 		// Add product to cart
 		function addToCart(ProdutoID) {
-		  fetch('http://localhost:3000/cart', {
+		  fetch('http://localhost:3000/carrinho', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
 			  session_id: sessionId,
-			  product_id: productId,
+			  product_id: ProdutoID,
 			  quantity: 1,
 			}),
 		  })
@@ -758,18 +758,18 @@
 	
 		// Fetch cart items
 		function fetchCart() {
-		  fetch(`http://localhost:3000/cart/${sessionId}`)
+		  fetch(`http://localhost:3000/carrrinho/${sessionId}`)
 			.then(response => response.json())
-			.then(cartItems => {
-			  const cartDiv = document.getElementById('cart');
+			.then(CarrinhoItems => {
+			  const cartDiv = document.getElementById('Carrinho');
 			  cartDiv.innerHTML = '';
-			  cartItems.forEach(item => {
-				cartDiv.innerHTML += `<p>${item.Product.name} (x${item.quantity})</p>`;
+			  CarrinhoItems.forEach(item => {
+				cartDiv.innerHTML += `<p>${item.Produto.Nome} (x${item.Quantidade})</p>`;
 			  });
 			});
 		}
 	
 		// Initial cart load
-		fetchCart();</script>
+		fetchCart();</script> -->
 </body>
 </html>
