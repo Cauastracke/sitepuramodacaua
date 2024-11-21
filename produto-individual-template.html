@@ -7,9 +7,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Titulo  -->
-    <title>Puramoda</title>
+    <title>Puramoda - Seu site favorito de roupas!</title>
 	<!-- Favicon -->
-	<link rel="icon" type="image/png" href="images/favicon.png">
+	<link rel="icon" type="image/png" href="images/Foto_mulher_puramoda-semfundo2.png">
 	<!-- Web Font -->
 	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 	
@@ -43,17 +43,6 @@
 
 	<!-- Color CSS -->
 	<link rel="stylesheet" href="css/color/color1.css">
-	<!--<link rel="stylesheet" href="css/color/color2.css">-->
-	<!--<link rel="stylesheet" href="css/color/color3.css">-->
-	<!--<link rel="stylesheet" href="css/color/color4.css">-->
-	<!--<link rel="stylesheet" href="css/color/color5.css">-->
-	<!--<link rel="stylesheet" href="css/color/color6.css">-->
-	<!--<link rel="stylesheet" href="css/color/color7.css">-->
-	<!--<link rel="stylesheet" href="css/color/color8.css">-->
-	<!--<link rel="stylesheet" href="css/color/color9.css">-->
-	<!--<link rel="stylesheet" href="css/color/color10.css">-->
-	<!--<link rel="stylesheet" href="css/color/color11.css">-->
-	<!--<link rel="stylesheet" href="css/color/color12.css">-->
 
 	<link rel="stylesheet" href="#" id="colors">
 	
@@ -71,7 +60,7 @@
 	</div>
 	<!-- End Preloader -->
 		<!-- Header -->
-		<header class="header shop">
+		<header class="header shop v2">
 			<!-- Topbar -->
 			<div class="topbar">
 				<div class="container">
@@ -80,8 +69,7 @@
 							<!-- Top Left -->
 							<div class="top-left">
 								<ul class="list-main">
-									<li><i class="ti-headphone-alt"></i> +55 (12) 9593593599</li>
-									<li><i class="ti-email"></i> support@shophub.com</li>
+									<li><i class="ti-email"></i> puramodasac@gmail.com</li>
 								</ul>
 							</div>
 							<!--/ End Top Left -->
@@ -90,10 +78,9 @@
 							<!-- Top Right -->
 							<div class="right-content">
 								<ul class="list-main">
-									<li><i class="ti-location-pin"></i> Store location</li>
-									<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
-									<li><i class="ti-user"></i> <a href="#">My account</a></li>
-									<li><i class="ti-power-off"></i><a href="login.html#">Login</a></li>
+									<li><i class="ti-location-pin"></i>Rua Antônio Fogaça de Almeida, nº 200, Jardim América, Jacareí, SP</li>
+									<li><i class="ti-user"></i> <a href="/perfil">Meu perfil</a></li>
+									<li><i class="ti-power-off"></i><a href="/login">Login</a></li>
 								</ul>
 							</div>
 							<!-- End Top Right -->
@@ -108,7 +95,7 @@
 						<div class="col-lg-2 col-md-2 col-12">
 							<!-- Logo -->
 							<div class="logo">
-								<a href="index.html"><img src="images/logo.png" alt="logo"></a>
+								<a href="/"><img src="images/foto_puramoda_escrito_e_mulher-removebg-preview.png" alt="logo"></a>
 							</div>
 							<!--/ End Logo -->
 							<!-- Search Form -->
@@ -130,13 +117,13 @@
 							<div class="search-bar-top">
 								<div class="search-bar">
 									<select>
-										<option selected="selected">All Category</option>
-										<option>watch</option>
-										<option>mobile</option>
-										<option>kid’s item</option>
+										<option selected="selected">Categorias</option>
+										<option>Camisa</option>
+										<option>Shorts</option>
+										<option>Vestido</option>
 									</select>
 									<form>
-										<input name="search" placeholder="Search Products Here....." type="search">
+										<input name="search" placeholder="Procure seus produtos aqui..." type="search">
 										<button class="btnn"><i class="ti-search"></i></button>
 									</form>
 								</div>
@@ -146,18 +133,15 @@
 							<div class="right-bar">
 								<!-- Search Form -->
 								<div class="sinlge-bar">
-									<a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-								</div>
-								<div class="sinlge-bar">
-									<a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+									<a href="/login" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
 								</div>
 								<div class="sinlge-bar shopping">
-									<a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">2</span></a>
+									<a href="/carrinho" class="single-icon"><i class="ti-shopping-cart"></i> <span class="total-count">2</span></a>
 									<!-- Shopping Item -->
 									<div class="shopping-item">
 										<div class="dropdown-cart-header">
 											<span>2 Items</span>
-											<a href="#">View Cart</a>
+											<a href="/carrinho">Carrinho</a>
 										</div>
 										<ul class="shopping-list">
 											<li>
@@ -178,7 +162,7 @@
 												<span>Total</span>
 												<span class="total-amount">$134.00</span>
 											</div>
-											<a href="checkout.html" class="btn animate">Checkout</a>
+											<a href="/checkout" class="btn animate">Checkout</a>
 										</div>
 									</div>
 									<!--/ End Shopping Item -->
@@ -200,43 +184,23 @@
 										<div class="navbar-collapse">	
 											<div class="nav-inner">	
 												<ul class="nav main-menu menu navbar-nav">
-													<li class="active"><a href="#">Home<i class="ti-angle-down"></i></a>
-														<ul class="dropdown">
-															<li><a href="index.html">Home Ecommerce V1</a></li>
-															<li><a href="index2.html">Home Ecommerce V2</a></li>
-															<li><a href="index3.html">Home Ecommerce V3</a></li>
-															<li><a href="index4.html">Home Ecommerce V4</a></li>
-														</ul>
+													<li class="active"><a href="/">Home</a>
 													</li>
-													<li><a href="#">Product</a></li>												
-													<li><a href="#">Service</a></li>
-													<li><a href="#">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
-														<ul class="dropdown">
-															<li><a href="shop-grid.html">Shop Grid</a></li>
-															<li><a href="shop-list.html">Shop List</a></li>
-															<li><a href="shop-single.html">shop Single</a></li>
-															<li><a href="cart.html">Cart</a></li>
-															<li><a href="checkout.html">Checkout</a></li>
+													<li><a href="#">Produtos<i class="ti-angle-down"></i></a>
+														<ul class="dropdown">	
+															<li><a href="/produto-individual">produto-indivdual-template</a></li>
+															<li><a href="/carrinho">carrinho</a></li>
+															<li><a href="/checkout">Checkout</a></li>
 														</ul>
 													</li>
 													<li><a href="#">Pages<i class="ti-angle-down"></i></a>
 														<ul class="dropdown">
-															<li><a href="about-us.html">About Us</a></li>
-															<li><a href="login.html">Login</a></li>
-															<li><a href="register.html">Register</a></li>
-															<li><a href="mail-success.html">Mail Success</a></li>
-															<li><a href="404.html">404</a></li>
-														</ul>
-													</li>									
-													<li><a href="#">Blog<i class="ti-angle-down"></i></a>
-														<ul class="dropdown">
-															<li><a href="blog-grid.html">Blog Grid</a></li>
-															<li><a href="blog-grid-sidebar.html">Blog Grid Sidebar</a></li>
-															<li><a href="blog-single.html">Blog Single</a></li>
-															<li><a href="blog-single-sidebar.html">Blog Single Sidebar</a></li>
+															<li><a href="/login">Login</a></li>
+															<li><a href="/register">Register</a></li>
+															<li><a href="/mail-success">Mail Success</a></li>
+															<li><a href="/404">404</a></li>
 														</ul>
 													</li>
-													<li><a href="contact.html">Contact Us</a></li>
 												</ul>
 											</div>
 										</div>
@@ -260,7 +224,7 @@
 						<div class="bread-inner">
 							<ul class="bread-list">
 								<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="blog-single.html">Shop Details</a></li>
+								<li class="active"><a href="blog-single.html">Produto</a></li>
 							</ul>
 						</div>
 					</div>
@@ -278,24 +242,14 @@
 									<div class="col-lg-6 col-12">
 										<!-- Product Slider -->
 										<div class="product-gallery">
-											<!-- Images slider -->
+											<!-- Fotos roupa -->
 											<div class="flexslider-thumbnails">
 												<ul class="slides">
 													<li data-thumb="https://via.placeholder.com/570x520" rel="adjustX:10, adjustY:">
 														<img src="https://via.placeholder.com/570x520" alt="#">
-													</li>
-													<li data-thumb="https://via.placeholder.com/570x520">
-														<img src="https://via.placeholder.com/570x520" alt="#">
-													</li>
-													<li data-thumb="https://via.placeholder.com/570x520">
-														<img src="https://via.placeholder.com/570x520" alt="#">
-													</li>
-													<li data-thumb="https://via.placeholder.com/570x520">
-														<img src="https://via.placeholder.com/570x520" alt="#">
-													</li>
 												</ul>
 											</div>
-											<!-- End Images slider -->
+											<!-- Fim fotos roupa -->
 										</div>
 										<!-- End Product slider -->
 									</div>
@@ -305,46 +259,26 @@
 											<div class="short">
 												<h4>Nonstick Dishwasher PFOA</h4>
 												<div class="rating-main">
-													<ul class="rating">
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star-half-o"></i></li>
-														<li class="dark"><i class="fa fa-star-o"></i></li>
-													</ul>
-													<a href="#" class="total-review">(102) Review</a>
+													
 												</div>
 												<p class="price"><span class="discount">$70.00</span><s>$80.00</s> </p>
 												<p class="description">eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in</p>
 											</div>
 											<!--/ End Description -->
-											<!-- Color -->
-											<div class="color">
-												<h4>Available Options <span>Color</span></h4>
-												<ul>
-													<li><a href="#" class="one"><i class="ti-check"></i></a></li>
-													<li><a href="#" class="two"><i class="ti-check"></i></a></li>
-													<li><a href="#" class="three"><i class="ti-check"></i></a></li>
-													<li><a href="#" class="four"><i class="ti-check"></i></a></li>
-												</ul>
-											</div>
-											<!--/ End Color -->
-											<!-- Size -->
+											<!-- Tamanho -->
 											<div class="size">
-												<h4>Size</h4>
+												<h4>Escolha seu tamanho</h4>
+												
 												<ul>
-													<li><a href="#" class="one">S</a></li>
+													<li><a href="#" class="one">P</a></li>
 													<li><a href="#" class="two">M</a></li>
-													<li><a href="#" class="three">L</a></li>
-													<li><a href="#" class="four">XL</a></li>
-													<li><a href="#" class="four">XXL</a></li>
+													<li><a href="#" class="three">G</a></li>
 												</ul>
 											</div>
-											<!--/ End Size -->
+											<!--/ Fima  -->
 											<!-- Product Buy -->
 											<div class="product-buy">
 												<div class="quantity">
-													<h6>Quantity :</h6>
 													<!-- Input Order -->
 													<div class="input-group">
 														<div class="button minus">
