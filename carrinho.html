@@ -717,5 +717,59 @@
 	<script src="js/easing.js"></script>
 	<!-- Active JS -->
 	<script src="js/active.js"></script>
+
+	<script>
+	const sessionId = 'unique-session-id'; // Replace with a unique session identifier
+
+		// Fetch products
+		fetch('http://localhost:3000/produtos')
+		  .then(response => response.json())
+		  .then(Produto => {
+			const productsDiv = document.getElementById('Produto');
+			products.forEach(product => {
+			  const productDiv = document.createElement('div');
+			  productDiv.className = 'Produto';
+			  productDiv.innerHTML = `
+				<h3>${Produto.Nome}</h3>
+				<p>Price: $${Produto.Preco}</p>
+				<button onclick="addToCart(${Produto.id})">Add to Cart</button>
+			  `;
+			  productsDiv.appendChild(productDiv);
+			});
+		  });
+	
+		// Add product to cart
+		function addToCart(ProdutoID) {
+		  fetch('http://localhost:3000/cart', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+			  session_id: sessionId,
+			  product_id: productId,
+			  quantity: 1,
+			}),
+		  })
+			.then(response => response.json())
+			.then(() => {
+			  alert('Item added to cart');
+			  fetchCart();
+			});
+		}
+	
+		// Fetch cart items
+		function fetchCart() {
+		  fetch(`http://localhost:3000/cart/${sessionId}`)
+			.then(response => response.json())
+			.then(cartItems => {
+			  const cartDiv = document.getElementById('cart');
+			  cartDiv.innerHTML = '';
+			  cartItems.forEach(item => {
+				cartDiv.innerHTML += `<p>${item.Product.name} (x${item.quantity})</p>`;
+			  });
+			});
+		}
+	
+		// Initial cart load
+		fetchCart();</script>
 </body>
 </html>
