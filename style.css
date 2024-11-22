@@ -1653,6 +1653,16 @@ Version:1.0
 /*======================================
    Start Most Popular CSS
 ========================================*/
+.default-img {
+	display: block;
+	max-width:255px;
+	max-height:320px;
+	min-width:255px;
+	min-height:320px;
+	width: auto;
+	height: auto;
+}
+
 .pro-tab-viewmore-wrap {
 	position: relative;
 	text-align: center;
