@@ -8,18 +8,20 @@ const sequelize = new Sequelize('Puramoda', 'root', 'aluno123', {
     }
   });
 
-// Pegando Tabela Cliente para Sequelize
-const Cliente = sequelize.define('Cliente', {
+// Pegando Tabela Clientes para Sequelize
+const Clientes = sequelize.define('Clientes', {
     ClienteID: {
       type: DataTypes.INTEGER,
+      autoIncrement: true,
       allowNull: false,
+      primaryKey: true,
     },
     Nome: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
     Email: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
     Senha: {
@@ -34,8 +36,6 @@ const Cliente = sequelize.define('Cliente', {
         type: DataTypes.STRING,
         allowNull: false
       },
-      tableName: 'Clientes',
-      timestamps: false // Caso você não tenha as colunas createdAt e updatedAt
   });
 
   // Pegando Tabela Produto para Sequelize
@@ -94,7 +94,7 @@ const Pedido = sequelize.define('Pedido', {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Cliente', // Name of the related table
+        model: 'Clientes', // Name of the related table
         key: 'ClienteID'
       },
       onDelete: 'CASCADE'
@@ -132,7 +132,7 @@ const Pedido = sequelize.define('Pedido', {
   
   // Optionally, you can set up associations with other models, e.g.:
   Pedido.associate = (models) => {
-    Pedido.belongsTo(models.Cliente, {
+    Pedido.belongsTo(models.Clientes, {
       foreignKey: 'ClienteID',
       onDelete: 'CASCADE'
     });
@@ -224,7 +224,7 @@ async function syncDatabase() {
 
 module.exports = {
     sequelize,
-    Cliente,
+    Clientes,
     Produto,
     Carrinho,
     Pedido,

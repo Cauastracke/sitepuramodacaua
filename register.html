@@ -243,7 +243,7 @@
 							<h2>Cadastro</h2>
 							<p>Por favor, coloque suas informações para se cadastrar </p>
 							<!-- Form -->
-							<form class="form" method="post" action="#">
+							<form class="form" id="registerForm" method="post" action="#">
 								<div class="row">
 									<div class="col-12">
 										<div class="form-group">
@@ -387,7 +387,7 @@
                 },
                 body: JSON.stringify({ Nome, Email, Celular, Endereco, Senha })
             })
-            .then(response => response.json())
+            .then(response)
             .then(data => {
                 document.getElementById('mensagem').innerText = data.message || 'Usuário registrado com sucesso!';
             })

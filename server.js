@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const { Cliente, testConnection, syncDatabase } = require('./db');
+const { Clientes, testConnection, syncDatabase } = require('./db');
 
 const app = express();
 const PORT = 3000;
@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 app.use(express.static('public'));
+app.use(express.json());
 // app.use(cors());
 
 // Testa a conexão com o banco de dados
@@ -108,43 +109,50 @@ app.get('/short-jeans', (req, res) => {
 });
 // Login e register
 
-// Login do Cliente
-app.post('/login', (req, res) => {
-  const { Email, Senha } = req.body;
-
-  db.query('SELECT * FROM Clientes WHERE Email = ?', [Email], (err, result) => {
-      if (err) {
-          return res.status(500).send('Erro no banco de dados');
-      }
-
-      if (result.length === 0) {
-          return res.status(400).send({ message: 'Cliente não encontrado' });
-      }
-
-      const Cliente = result[0];
-
-      // Comparar a senha em texto simples
-      if (Cliente.Senha === Senha) {
-          res.status(200).send({ message: 'Login bem-sucedido!' });
-      } else {
-          res.status(400).send({ message: 'Senha incorreta' });
-      }
-  });
-});
-
 // Registro de usuário
 app.post('/register', async (req, res) => {
   const { Nome, Email, Senha, Celular, Endereco } = req.body;
 
-      // Criar um novo usuário no banco de dados
-      const sql = 'INSERT INTO usuarios (Nome, Email, Senha, Celular, Endereco) VALUES (?, ?, ?, ?, ?)';
-      db.query(sql, [Nome, Email, Senha, Celular, Endereco], (err, result) => {
-          if (err) return res.status(500).send('Erro ao registrar usuário');
-          res.status(200).send({ message: 'Usuário registrado com sucesso' });
-      });
-  });
+  try {
 
+    // registrar novo usuario
+    const novoCliente = await Clientes.create({ Nome, Email, Senha, Celular, Endereco });
 
+    res.status(200).send({ message: 'Usuário registrado com sucesso', user: Clientes  });
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Erro ao registrar usuário');
+  }
+});
+
+// Login do Cliente
+app.post('/login', async (req, res) => {
+  const { Email, Senha } = req.body;
+
+  if (!Email || !Senha) {
+    return res.status(400).send({ message: 'Email e senha são obrigatórios.' });
+  }
+
+  try {
+
+    // achar email do cliente
+    const cliente = await Clientes.findOne({ where: { Email } })
+
+    if (!cliente)  {
+      return res.status(400).send({ message: 'Cliente não encontrado' });
+    }
+
+    if (cliente.Senha === Senha) {
+        res.status(200).send({ message: 'Login bem-sucedido!' });
+    } else {
+        res.status(400).send({ message: 'Senha incorreta' });
+    }
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Erro ao fazer login.' });
+  }
+});
 
 // Pegar Produtos
 // app.get('/produtos', async (req, res) => {

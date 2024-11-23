@@ -1,7 +1,7 @@
 CREATE DATABASE puramoda;
 USE puramoda;
 
-CREATE TABLE Cliente (
+CREATE TABLE Clientes (
     ClienteID INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
     Email VARCHAR(100) NOT NULL UNIQUE,
@@ -30,7 +30,7 @@ CREATE TABLE Carrinho (
     Quantidade INT,
     ClienteID INT,
     session_id VARCHAR(255),
-    FOREIGN KEY (ClienteID) REFERENCES Cliente(ClienteID),
+    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID),
     FOREIGN KEY (ProdutoID) REFERENCES Produto(ProdutoID)
 );
 
@@ -41,7 +41,7 @@ CREATE TABLE `Pedido` (
     CupomID INT,
     Data DATE NOT NULL,
     Total DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (ClienteID) REFERENCES Cliente(ClienteID) ON DELETE CASCADE,
+    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID) ON DELETE CASCADE,
     FOREIGN KEY (CarrinhoID) REFERENCES Carrinho(CarrinhoID) ON DELETE CASCADE,
     FOREIGN KEY (CupomID) REFERENCES Cupom(CupomID) ON DELETE CASCADE
 );
