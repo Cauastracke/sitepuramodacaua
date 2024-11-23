@@ -28,6 +28,17 @@ app.get('/produtos', (req, res) => {
   res.sendFile(__dirname + '/produtos.html');
 });
 
+// Responde as paginas das categorias
+app.get('/categoria-blusa', (req, res) => {
+  res.sendFile(__dirname + '/produtos-categoria-blusa.html');
+});
+app.get('/categoria-jeans', (req, res) => {
+  res.sendFile(__dirname + '/produtos-categoria-jeans.html');
+});
+app.get('/categoria-vestidos', (req, res) => {
+  res.sendFile(__dirname + '/produtos-categoria-vestidos.html');
+});
+
 // Responde a pagina dos produtos
 app.get('/produto-individual', (req, res) => {
   res.sendFile(__dirname + '/produto-individual-template.html');
@@ -89,23 +100,26 @@ app.get('/short-jeans-flor', (req, res) => {
 app.get('/cropped-frio-preto', (req, res) => {
   res.sendFile(__dirname + '/produto-cropped-frio-preto.html');
 });
-app.get('/cropped-de-amarração', (req, res) => {
-  res.sendFile(__dirname + '/produto-cropped-de-amarração.html');
+app.get('/cropped-de-amarracão', (req, res) => {
+  res.sendFile(__dirname + '/produto-cropped-de-amarracão.html');
 });
 app.get('/jaqueta-cropped-branca', (req, res) => {
   res.sendFile(__dirname + '/produto-jaqueta-cropped-branca.html');
 });
 app.get('/calca-jeans-azul', (req, res) => {
-  res.sendFile(__dirname + 'produto-calca-jeans-preta.html');
+  res.sendFile(__dirname + 'produto-calca-jeans-azul.html');
 });
 app.get('/vestido-rosa', (req, res) => {
   res.sendFile(__dirname + 'produto-vestido-rosa.html');
 });
 app.get('/cropped-preta', (req, res) => {
-  res.sendFile(__dirname + 'produto-cropped-preta.html');
+  res.sendFile(__dirname + 'produto-cropped-preto.html');
 });
 app.get('/short-jeans', (req, res) => {
   res.sendFile(__dirname + '/produto-shorts-jeans.html');
+});
+app.get('/vestido-branco-rodado', (req, res) => {
+  res.sendFile(__dirname + '/produto-vestido-branco-rodado.html');
 });
 // Login e register
 
