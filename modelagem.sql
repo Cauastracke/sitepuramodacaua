@@ -10,7 +10,7 @@ CREATE TABLE Clientes (
     Endereco VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE Produto (
+CREATE TABLE Produtos (
     ProdutoID INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
     Descricao VARCHAR(255) NOT NULL,
@@ -67,5 +67,5 @@ CREATE TABLE CarrinhoItems (
     UNIQUE (CarrinhoID, ProdutoID)
 );
 
-INSERT INTO Produto(Nome, Descricao, Tipo, Tamanho, Preco) VALUES
+INSERT INTO Produtos(Nome, Descricao, Tipo, Tamanho, Preco) VALUES
 ('Calça azul', 'Teste', 'Calça', 'M', 59.99);

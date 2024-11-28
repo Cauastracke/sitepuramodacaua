@@ -88,8 +88,8 @@ app.get('/vestido-azul', (req, res) => {
 app.get('/saia-jeans', (req, res) => {
   res.sendFile(__dirname + '/produto-saia-jeans.html');
 });
-app.get('/vestido-de-verão', (req, res) => {
-  res.sendFile(__dirname + '/produto-vestido-de-verão.html');
+app.get('/vestido-de-verao', (req, res) => {
+  res.sendFile(__dirname + '/produto-vestido-de-verao.html');
 });
 app.get('/vestido-azul-marinho', (req, res) => {
   res.sendFile(__dirname + '/produto-vestido-azul-marinho.html');
@@ -100,20 +100,20 @@ app.get('/short-jeans-flor', (req, res) => {
 app.get('/cropped-frio-preto', (req, res) => {
   res.sendFile(__dirname + '/produto-cropped-frio-preto.html');
 });
-app.get('/cropped-de-amarracão', (req, res) => {
-  res.sendFile(__dirname + '/produto-cropped-de-amarracão.html');
+app.get('/cropped-de-amarracao', (req, res) => {
+  res.sendFile(__dirname + '/produto-cropped-de-amarracao.html');
 });
 app.get('/jaqueta-cropped-branca', (req, res) => {
   res.sendFile(__dirname + '/produto-jaqueta-cropped-branca.html');
 });
 app.get('/calca-jeans-azul', (req, res) => {
-  res.sendFile(__dirname + 'produto-calca-jeans-azul.html');
+  res.sendFile(__dirname + '/produto-calca-jeans-azul.html');
 });
 app.get('/vestido-rosa', (req, res) => {
-  res.sendFile(__dirname + 'produto-vestido-rosa.html');
+  res.sendFile(__dirname + '/produto-vestido-rosa.html');
 });
 app.get('/cropped-preta', (req, res) => {
-  res.sendFile(__dirname + 'produto-cropped-preto.html');
+  res.sendFile(__dirname + '/produto-cropped-preto.html');
 });
 app.get('/short-jeans', (req, res) => {
   res.sendFile(__dirname + '/produto-shorts-jeans.html');
@@ -121,6 +121,16 @@ app.get('/short-jeans', (req, res) => {
 app.get('/vestido-branco-rodado', (req, res) => {
   res.sendFile(__dirname + '/produto-vestido-branco-rodado.html');
 });
+app.get('/jeans', (req, res) => {
+  res.sendFile(__dirname + '/produtos-categoria-jeans.html');
+});
+app.get('/vestidos-template', (req, res) => {
+  res.sendFile(__dirname + '/produtos-categoria-vestidos.html');
+});
+app.get('/blusas', (req, res) => {
+  res.sendFile(__dirname + '/produtos-categoria-blusa.html');
+});
+
 // Login e register
 
 // Registro de usuário

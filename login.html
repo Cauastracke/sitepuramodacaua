@@ -188,21 +188,10 @@
 												<ul class="nav main-menu menu navbar-nav">
 													<li class="active"><a href="/">Home</a>
 													</li>
-													<li><a href="#">Produtos<i class="ti-angle-down"></i></a>
-														<ul class="dropdown">	
-															<li><a href="/produto-individual">produto-indivdual-template</a></li>
-															<li><a href="/carrinho">carrinho</a></li>
-															<li><a href="/checkout">Checkout</a></li>
-														</ul>
+													<li><a href="/produtos">Produtos</a>
+														
 													</li>
-													<li><a href="#">Pages<i class="ti-angle-down"></i></a>
-														<ul class="dropdown">
-															<li><a href="/login">Login</a></li>
-															<li><a href="/register">Register</a></li>
-															<li><a href="/mail-success">Mail Success</a></li>
-															<li><a href="/404">404</a></li>
-														</ul>
-													</li>
+
 												</ul>
 											</div>
 										</div>
@@ -365,12 +354,13 @@
 					},
 					body: JSON.stringify({ Email, Senha })
 				})
-				.then(response)
+				.then(response => response.json())
 				.then(data => {
 					document.getElementById('mensagem').innerText = data.message || 'Login bem-sucedido!';
 				})
 				.catch(error => {
 					document.getElementById('mensagem').innerText = 'Erro: ' + error.message;
+
 				});
 			});
 		</script>
