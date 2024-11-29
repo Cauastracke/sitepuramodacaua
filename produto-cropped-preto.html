@@ -116,11 +116,11 @@
 						<div class="col-lg-8 col-md-7 col-12">
 							<div class="search-bar-top">
 								<div class="search-bar">
-									<select>
-										<option selected="selected">Categorias</option>
-										<option>Blusas</option>
-										<option>Jeans</option>
-										<option>Vestido</option>
+									<select onchange="if (this.value) window.location.href=this.value;">
+										<option value="/" selected="selected">Todos</option>
+										<option value="/categoria-blusa">Blusas</option>
+										<option value="/categoria-jeans">Jeans</option>
+										<option value="/categria-vestido">Vestido</option>
 									</select>
 									<form>
 										<input name="search" placeholder="Procure seus produtos aqui..." type="search">
@@ -213,7 +213,8 @@
 						<div class="bread-inner">
 							<ul class="bread-list">
 								<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="#">Produto</a></li>
+								<li class="active"><a href="/produtos">Produto<i class="ti-arrow-right"></i></a></li>
+								<li class="active"><a href="/cropped-de-amarracao">Cropped de amarração</a></li>
 							</ul>
 						</div>
 					</div>
@@ -419,7 +420,7 @@
 								</div>
                             </div>
                             <div class="product-content">
-                                <h3><a href='/produto-cropped-de-amarracão.html'>Cropped de amarração</a></h3>
+                                <h3><a href='/cropped-preta'>Cropped preto</a></h3>
                                 <div class="product-price">
                                     <span>R$49.90</span>
                                 </div>

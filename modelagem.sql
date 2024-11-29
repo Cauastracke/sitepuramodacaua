@@ -29,9 +29,14 @@ CREATE TABLE Carrinho (
     ProdutoID INT,
     Quantidade INT,
     ClienteID INT,
-    session_id VARCHAR(255),
     FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID),
     FOREIGN KEY (ProdutoID) REFERENCES Produto(ProdutoID)
+);
+
+CREATE TABLE CarrinhoItems (
+    CarrinhoID INT AUTO_INCREMENT PRIMARY KEY,
+    Quantidade INT,
+    FOREIGN KEY (CarrinhoID) REFERENCES Carrinho(CarrinhoID)
 );
 
 CREATE TABLE `Pedido` (

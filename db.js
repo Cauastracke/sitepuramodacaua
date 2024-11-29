@@ -76,8 +76,20 @@ const Carrinho = sequelize.define('Carrinho', {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-  session_id: {
-      type: DataTypes.STRING,
+});
+
+// Pegando Tabela CarrinhoItems para Sequelize
+const CarrinhoItems = sequelize.define('CarrinhoItems', {
+  ProdutoID: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  Quantidade: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  ClienteID: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
 });
@@ -232,3 +244,9 @@ module.exports = {
     testConnection,
     syncDatabase
 };
+
+Clientes.hasOne(Carrinho, { onDelete: 'CASCADE' });
+Carrinho.belongsTo(Clientes);
+
+Carrinho.hasMany(CarrinhoItems, { onDelete: 'CASCADE' });
+CarrinhoItems.belongsTo(Carrinho);

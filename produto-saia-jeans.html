@@ -116,11 +116,11 @@
 						<div class="col-lg-8 col-md-7 col-12">
 							<div class="search-bar-top">
 								<div class="search-bar">
-									<select>
-										<option selected="selected">Categorias</option>
-										<option>Blusas</option>
-										<option>Jeans</option>
-										<option>Vestido</option>
+									<select onchange="if (this.value) window.location.href=this.value;">
+										<option value="/" selected="selected">Todos</option>
+										<option value="/categoria-blusa">Blusas</option>
+										<option value="/categoria-jeans">Jeans</option>
+										<option value="/categria-vestido">Vestido</option>
 									</select>
 									<form>
 										<input name="search" placeholder="Procure seus produtos aqui..." type="search">
