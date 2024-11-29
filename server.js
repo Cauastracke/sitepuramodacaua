@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const { Clientes, testConnection, syncDatabase } = require('./db');
+const { Clientes, Carrinho, testConnection, syncDatabase, sequelize } = require('./db');
 
 const app = express();
 const PORT = 3000;
@@ -139,8 +139,9 @@ app.post('/register', async (req, res) => {
 
   try {
 
-    // registrar novo usuario
+    // registrar novo usuario e carrinho
     const novoCliente = await Clientes.create({ Nome, Email, Senha, Celular, Endereco });
+    const carrinho = await Carrinho.create({ CarrinhoID: ClienteID });
 
     res.status(200).send({ message: 'Usuário registrado com sucesso', user: Clientes  });
   } catch (error) {
@@ -177,6 +178,64 @@ app.post('/login', async (req, res) => {
     res.status(500).send({ message: 'Erro ao fazer login.' });
   }
 });
+
+// // Endpoint to get a user's cart
+// app.get('/users/:id/cart', async (req, res) => {
+//   const userId = req.params.id;
+//   try {
+//     const user = await User.findByPk(userId);
+
+//     if (!user) {
+//       return res.status(404).json({ error: 'User not found' });
+//     }
+
+//     // Fetch the cart for the user
+//     let cart = await user.getCart();
+//     if (!cart) {
+//       // If no cart exists, create one
+//       cart = await Cart.create({ userId: user.id });
+//     }
+
+//     res.status(200).json(cart);
+//   } catch (error) {
+//     res.status(400).json({ error: 'Error fetching cart', details: error.message });
+//   }
+// });
+
+// // Endpoint to add an item to the user's cart (optional)
+// app.post('/users/:id/cart/items', async (req, res) => {
+//   const userId = req.params.id;
+//   const { quantity, price } = req.body;
+//   try {
+//     const user = await User.findByPk(userId);
+
+//     if (!user) {
+//       return res.status(404).json({ error: 'User not found' });
+//     }
+
+//     let cart = await user.getCart();
+
+//     if (!cart) {
+//       cart = await Cart.create({ userId: user.id });
+//     }
+
+//     // Add item to the cart
+//     const cartItem = await CartItem.create({
+//       quantity,
+//       price,
+//       cartId: cart.id,
+//     });
+
+//     // Update cart's totalItems and totalPrice
+//     cart.totalItems += quantity;
+//     cart.totalPrice += price * quantity;
+//     await cart.save();
+
+//     res.status(201).json(cartItem);
+//   } catch (error) {
+//     res.status(400).json({ error: 'Error adding item to cart', details: error.message });
+//   }
+// });
 
 // Pegar Produtos
 // app.get('/produtos', async (req, res) => {

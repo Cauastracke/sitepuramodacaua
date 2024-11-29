@@ -3,11 +3,13 @@ USE puramoda;
 
 CREATE TABLE Clientes (
     ClienteID INT AUTO_INCREMENT PRIMARY KEY,
+    CarrinhoID INT,
     Nome VARCHAR(100) NOT NULL,
     Email VARCHAR(100) NOT NULL UNIQUE,
     Senha VARCHAR(20) NOT NULL,
     Celular VARCHAR(20) NOT NULL,
     Endereco VARCHAR(100) NOT NULL
+     FOREIGN KEY (CarrinhoID) REFERENCES Carrinho(CarrinhoID),
 );
 
 CREATE TABLE Produtos (

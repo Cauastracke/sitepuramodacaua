@@ -245,8 +245,5 @@ module.exports = {
     syncDatabase
 };
 
-Clientes.hasOne(Carrinho, { onDelete: 'CASCADE' });
+Clientes.hasOne(Carrinho);
 Carrinho.belongsTo(Clientes);
-
-Carrinho.hasMany(CarrinhoItems, { onDelete: 'CASCADE' });
-CarrinhoItems.belongsTo(Carrinho);
