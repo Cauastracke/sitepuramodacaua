@@ -9,7 +9,7 @@ CREATE TABLE Clientes (
     Senha VARCHAR(20) NOT NULL,
     Celular VARCHAR(20) NOT NULL,
     Endereco VARCHAR(100) NOT NULL
-     FOREIGN KEY (CarrinhoID) REFERENCES Carrinho(CarrinhoID),
+     FOREIGN KEY (CarrinhoID) REFERENCES Carrinhos(CarrinhoID),
 );
 
 CREATE TABLE Produtos (
@@ -21,47 +21,17 @@ CREATE TABLE Produtos (
     Preco DECIMAL(10, 2) NOT NULL
 );
 
-CREATE TABLE Cupom (
+CREATE TABLE Cupoms (
     CupomID INT AUTO_INCREMENT PRIMARY KEY,
     Cupom VARCHAR(100) NOT NULL UNIQUE
 );
 
-CREATE TABLE Carrinho (
+CREATE TABLE Carrinhos (
     CarrinhoID INT AUTO_INCREMENT PRIMARY KEY,
     ProdutoID INT,
-    Quantidade INT,
     ClienteID INT,
     FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID),
-    FOREIGN KEY (ProdutoID) REFERENCES Produto(ProdutoID)
-);
-
-CREATE TABLE CarrinhoItems (
-    CarrinhoID INT AUTO_INCREMENT PRIMARY KEY,
-    Quantidade INT,
-    FOREIGN KEY (CarrinhoID) REFERENCES Carrinho(CarrinhoID)
-);
-
-CREATE TABLE `Pedido` (
-    PedidoID INT AUTO_INCREMENT PRIMARY KEY,
-    ClienteID INT,
-    CarrinhoID INT,
-    CupomID INT,
-    Data DATE NOT NULL,
-    Total DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID) ON DELETE CASCADE,
-    FOREIGN KEY (CarrinhoID) REFERENCES Carrinho(CarrinhoID) ON DELETE CASCADE,
-    FOREIGN KEY (CupomID) REFERENCES Cupom(CupomID) ON DELETE CASCADE
-);
-
-CREATE TABLE PedidoProd (
-    PedidoID INT,
-    ProdutoID INT,
-    CarrinhoID INT,
-    Quantidade INT NOT NULL,
-    PRIMARY KEY (PedidoID, ProdutoID),
-    FOREIGN KEY (PedidoID) REFERENCES `Pedido`(PedidoID) ON DELETE CASCADE,
-    FOREIGN KEY (ProdutoID) REFERENCES Produto(ProdutoID) ON DELETE CASCADE,
-    FOREIGN KEY (CarrinhoID) REFERENCES Carrinho(CarrinhoID) ON DELETE CASCADE
+    FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID)
 );
 
 CREATE TABLE CarrinhoItems (
@@ -69,10 +39,35 @@ CREATE TABLE CarrinhoItems (
     CarrinhoID INT,
     ProdutoID INT,
     Quantidade INT NOT NULL,
-    FOREIGN KEY (CarrinhoID) REFERENCES Carrinho(CarrinhoID) ON DELETE CASCADE,
-    FOREIGN KEY (ProdutoID) REFERENCES Produto(ProdutoID) ON DELETE CASCADE,
+    FOREIGN KEY (CarrinhoID) REFERENCES Carrinhos(CarrinhoID) ON DELETE CASCADE,
+    FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID) ON DELETE CASCADE,
     UNIQUE (CarrinhoID, ProdutoID)
 );
+
+CREATE TABLE `Pedidos` (
+    PedidoID INT AUTO_INCREMENT PRIMARY KEY,
+    ClienteID INT,
+    CarrinhoID INT,
+    CupomID INT,
+    Data DATE NOT NULL,
+    Total DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID) ON DELETE CASCADE,
+    FOREIGN KEY (CarrinhoID) REFERENCES Carrinhos(CarrinhoID) ON DELETE CASCADE,
+    FOREIGN KEY (CupomID) REFERENCES Cupoms(CupomID) ON DELETE CASCADE
+);
+
+CREATE TABLE PedidoProds (
+    PedidoID INT,
+    ProdutoID INT,
+    CarrinhoID INT,
+    Quantidade INT NOT NULL,
+    PRIMARY KEY (PedidoID, ProdutoID),
+    FOREIGN KEY (PedidoID) REFERENCES `Pedidos`(PedidoID) ON DELETE CASCADE,
+    FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID) ON DELETE CASCADE,
+    FOREIGN KEY (CarrinhoID) REFERENCES Carrinhos(CarrinhoID) ON DELETE CASCADE
+);
+
+
 
 INSERT INTO Produtos(Nome, Descricao, Tipo, Tamanho, Preco) VALUES
 ('Calça azul', 'Teste', 'Calça', 'M', 59.99);

@@ -2,10 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const { Clientes, Carrinho, testConnection, syncDatabase, sequelize } = require('./db');
 
 const app = express();
 const PORT = 3000;
+
+const sessionStore = new SequelizeStore({
+  db: sequelize,  // Use your Sequelize instance
+});
 
 // Configura o middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -13,13 +19,29 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 app.use(express.static('public'));
 app.use(express.json());
-// app.use(cors());
+
+app.use(
+  session({
+      secret: 'your-secret-key', // Replace with a secure secret key
+      store: sessionStore,
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+          maxAge: 1000 * 60 * 60 * 24, // 1 day
+      },
+  })
+);
+app.use(cors({
+  origin: 'http://localhost:3000', // Your front-end URL
+  credentials: true // Allow cookies (session)
+}));
 
 // Testa a conexão com o banco de dados
 testConnection();
+sessionStore.sync();
 
 // Responde a pagina home
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join (__dirname, '/home.html'));
 });
 
@@ -54,7 +76,7 @@ app.get('/checkout', (req, res) => {
   res.sendFile(__dirname + '/checkout.html');
 });
 
-// Páagina 404
+// Página 404
 app.get('/404', (req, res) => {
   res.sendFile(__dirname + '/404.html');
 });
@@ -69,11 +91,18 @@ app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/login.html');
 });
 
-// Responde a pagina perfil
-app.get('/perfil', (req, res) => {
-  res.sendFile(__dirname + '/perfil.html');
+app.get('/logout', (req, res) => {
+  res.sendFile(__dirname + '/logout.html');
 });
 
+app.get('/perfil', (req, res) => {
+  // Check if the user is logged in by checking the session
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+
+  res.sendFile(path.join(__dirname, 'perfil.html'));
+});
 
 //comeco dos html dos produtos
 app.get('/calca-jeans-preta', (req, res) => {
@@ -168,6 +197,12 @@ app.post('/login', async (req, res) => {
     }
 
     if (cliente.Senha === Senha) {
+
+        req.session.user = {
+          id: cliente.ClienteID,
+          email: cliente.Email,
+        };
+
         res.status(200).send({ message: 'Login bem-sucedido!' });
     } else {
         res.status(400).send({ message: 'Senha incorreta' });
@@ -179,6 +214,15 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.post('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send({ message: 'Erro ao fazer logout.' });
+    }
+    res.clearCookie('connect.sid');  // Clear session cookie
+    res.send({ message: 'Logout bem-sucedido!' });  // Send success message
+  });
+});
 // // Endpoint to get a user's cart
 // app.get('/users/:id/cart', async (req, res) => {
 //   const userId = req.params.id;

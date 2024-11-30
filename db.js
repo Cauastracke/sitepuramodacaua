@@ -39,7 +39,7 @@ const Clientes = sequelize.define('Clientes', {
   });
 
   // Pegando Tabela Produto para Sequelize
-const Produto = sequelize.define('Produto', {
+const Produtos = sequelize.define('Produtos', {
     Nome: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -63,7 +63,7 @@ const Produto = sequelize.define('Produto', {
 });
 
 // Pegando Tabela Carrinho para Sequelize
-const Carrinho = sequelize.define('Carrinho', {
+const Carrinhos = sequelize.define('Carrinhos', {
   ProdutoID: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -95,7 +95,7 @@ const CarrinhoItems = sequelize.define('CarrinhoItems', {
 });
 
 // Pegando Tabela Pedido para Sequelize
-const Pedido = sequelize.define('Pedido', {
+const Pedidos = sequelize.define('Pedidos', {
     PedidoID: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -137,29 +137,26 @@ const Pedido = sequelize.define('Pedido', {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false
     }
-  }, {
-    tableName: 'Pedido', // Specify the table name explicitly
-    timestamps: false // Assuming you don't have createdAt or updatedAt columns
   });
   
   // Optionally, you can set up associations with other models, e.g.:
-  Pedido.associate = (models) => {
+  Pedidos.associate = (models) => {
     Pedido.belongsTo(models.Clientes, {
       foreignKey: 'ClienteID',
       onDelete: 'CASCADE'
     });
-    Pedido.belongsTo(models.Carrinho, {
+    Pedidos.belongsTo(models.Carrinhos, {
       foreignKey: 'CarrinhoID',
       onDelete: 'CASCADE'
     });
-    Pedido.belongsTo(models.Cupom, {
+    Pedidos.belongsTo(models.Cupoms, {
       foreignKey: 'CupomID',
       onDelete: 'CASCADE'
     });
   };
 
   // Pegando Tabela PedidoProd para Sequelize
-  const PedidoProd = sequelize.define('PedidoProd', {
+  const PedidoProds = sequelize.define('PedidoProds', {
     PedidoID: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -193,26 +190,32 @@ const Pedido = sequelize.define('Pedido', {
       type: DataTypes.INTEGER,
       allowNull: false
     }
-  }, {
-    tableName: 'PedidoProd', // Explicitly specify the table name
-    timestamps: false // Assuming you don't need createdAt or updatedAt columns
   });
   
   // Optionally, define associations between `PedidoProd` and other models:
-  PedidoProd.associate = (models) => {
-    PedidoProd.belongsTo(models.Pedido, {
+  PedidoProds.associate = (models) => {
+    PedidoProds.belongsTo(models.Pedidos, {
       foreignKey: 'PedidoID',
       onDelete: 'CASCADE'
     });
-    PedidoProd.belongsTo(models.Produto, {
+    PedidoProds.belongsTo(models.Produtos, {
       foreignKey: 'ProdutoID',
       onDelete: 'CASCADE'
     });
-    PedidoProd.belongsTo(models.Carrinho, {
+    PedidoProds.belongsTo(models.Carrinhos, {
       foreignKey: 'CarrinhoID',
       onDelete: 'CASCADE'
     });
   };
+
+  (async () => {
+    try {
+        await sequelize.authenticate();
+        console.log('Connection to the database has been established successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+    }
+})();
 
 // Testa a conexão com o banco de dados
 async function testConnection() {
@@ -237,13 +240,16 @@ async function syncDatabase() {
 module.exports = {
     sequelize,
     Clientes,
-    Produto,
-    Carrinho,
-    Pedido,
-    PedidoProd,
+    Produtos,
+    Carrinhos,
+    Pedidos,
+    PedidoProds,
     testConnection,
     syncDatabase
 };
 
-Clientes.hasOne(Carrinho);
-Carrinho.belongsTo(Clientes);
+Clientes.hasOne(Carrinhos);
+Carrinhos.belongsTo(Clientes);
+Carrinhos.hasMany(CarrinhoItems);
+CarrinhoItems.belongsTo(Carrinhos);
+CarrinhoItems.belongsTo(Produtos)

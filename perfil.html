@@ -106,7 +106,7 @@
 					<div class="col-lg-2 col-md-2 col-12">
 						<!-- Logo -->
 						<div class="logo">
-							<a href="home.html"><img src="images/foto_puramoda_escrito_e_mulher-removebg-preview.png" alt="logo"></a>
+							<a href='/'><img src="images/foto_puramoda_escrito_e_mulher-removebg-preview.png" alt="logo"></a>
 						</div>
 						<!--/ End Logo -->
 						<!-- Search Form -->
@@ -128,7 +128,7 @@
 						<div class="search-bar-top">
 							<div class="search-bar">
 								<select onchange="if (this.value) window.location.href=this.value;">
-									<option value="/" selected="selected">Todos</option>
+									<option value="/produtos" selected="selected">Todos</option>
 									<option value="/categoria-blusa">Blusas</option>
 									<option value="/categoria-jeans">Jeans</option>
 									<option value="/categria-vestido">Vestido</option>
@@ -152,7 +152,7 @@
 								<div class="shopping-item">
 									<div class="dropdown-cart-header">
 										<span>2 Items</span>
-										<a href="/carrinho.h">Carrinho</a>
+										<a href="/carrinho">Carrinho</a>
 									</div>
 									<ul class="shopping-list">
 										<li>
@@ -224,7 +224,7 @@
 						<div class="bread-inner">
 							<ul class="bread-list">
 								<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="#">Checkout</a></li>
+								<li class="active"><a href='/checkout'>Checkout</a></li>
 							</ul>
 						</div>
 					</div>
@@ -263,18 +263,6 @@
 									</div>
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
-											<label>Número</label>
-											<input type="number" name="number" placeholder="">
-										</div>
-									</div>
-									<div class="col-lg-6 col-md-6 col-12">
-										<div class="form-group">
-											<label>Complemento</label>
-											<input type="text" name="address" placeholder="">
-										</div>
-									</div>
-									<div class="col-lg-6 col-md-6 col-12">
-										<div class="form-group">
 											<label>Estado</label>
 											<select name="state-province" id="state-province">
 												<option value="divition" selected="selected">AC</option>
@@ -285,8 +273,12 @@
 												<option>Dallas</option>
 												<option>Charlotte</option>
 											</select>
+										</div>
 									</div>
-			
+									<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<a href="/logout" class="btn">Logout</a>
+										</div>
 									</div>
 								</div>
 							</form>
@@ -297,43 +289,6 @@
 			</div>
 		</section>
 		<!--/ End Checkout -->
-		
-		<!-- Start Shop Services Area  -->
-		<section class="shop-services section home">
-			<div class="container">
-				<div class="row">
-					
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Conteudo serviços loja -->
-						<div class="single-service">
-							<i class="ti-reload"></i>
-							<h4>Reembolso grátis</h4>
-							<p>Em até 30 dias</p>
-						</div>
-						<!-- Fim do conteudo serviços loja -->
-					</div>
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Conteúdo serviços loja -->
-						<div class="single-service">
-							<i class="ti-lock"></i>
-							<h4>Pagamento seguro</h4>
-							<p>Pagamento 100% seguro</p>
-						</div>
-						<!-- Fim do conteudo serviços loja-->
-					</div>
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Conteudo dos serviços da loja -->
-						<div class="single-service">
-							<i class="ti-tag"></i>
-							<h4>Melhor preço</h4>
-							<p>Preço garantido</p>
-						</div>
-						<!-- Fim do conteudo serviços loja -->
-					</div>
-				</div>
-			</div>
-		</section>
-		<!-- End Shop Services -->
 			
 		<!-- Start Footer Area -->
 		<footer class="footer">
@@ -363,7 +318,7 @@
 										<li><i class="ti-mobile"></i> (12) 2128-5200</li>
 										<li><i class="ti-email"></i> puramodasac@gmail.com</li>
 										<li><i class="ti-location-pin"></i> Rua Antônio Fogaça de Almeida, nº 200, Jardim América, Jacareí, SP</li>
-										<li><a href="#"><i class="ti-instagram"></i> Instagram</a></li>
+										<li><a href="https://www.instagram.com/puramoda_ifsp"><i class="ti-instagram"></i> Instagram</a></li>
 									</ul>
 								</div>
 							</div>
@@ -412,5 +367,4 @@
 	<script src="js/easing.js"></script>
 	<!-- Active JS -->
 	<script src="js/active.js"></script>
-</body>
 </html>

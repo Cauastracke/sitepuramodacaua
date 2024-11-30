@@ -120,11 +120,11 @@
 						<div class="col-lg-8 col-md-7 col-12">
 							<div class="search-bar-top">
 								<div class="search-bar">
-									<select>
-										<option selected="selected">Categorias</option>
-										<option>Blusa</option>
-										<option>Jeans</option>
-										<option>Vestido</option>
+									<select onchange="if (this.value) window.location.href=this.value;">
+										<option value="/produtos" selected="selected">Todos</option>
+										<option value="/categoria-blusa">Blusas</option>
+										<option value="/categoria-jeans">Jeans</option>
+										<option value="/categria-vestido">Vestido</option>
 									</select>
 									<form>
 										<input name="search" placeholder="Procure seus produtos aqui..." type="search">
@@ -237,9 +237,9 @@
 								<div class="single-widget category">
 									<h3 class="title">Categorias</h3>
 									<ul class="categor-list">
-										<li><a href='/produtos-categoria-blusa.html'>Blusas</a></li>
-										<li><a href='/produtos-categoria-jeans.html'>Jeans</a></li>
-										<li><a href='/produtos-categoria-vestidos.html'>Vestidos</a></li>
+										<li><a href='/categoria-blusa'>Blusas</a></li>
+										<li><a href='/categoria-jeans'>Jeans</a></li>
+										<li><a href='/categoria-vestidos'>Vestidos</a></li>
 										<li><a href='/produtos'>Todos</a></li>
 									</ul>
 								</div>
@@ -538,11 +538,7 @@
 											</div>
 											<!--/ End Input Order -->
 										</div>
-										<div class="add-to-cart">
-											<a href="#" class="btn">Add to cart</a>
-											<a href="#" class="btn min"><i class="ti-heart"></i></a>
-											<a href="#" class="btn min"><i class="fa fa-compress"></i></a>
-										</div>
+									
 										</div>
 									</div>
 								</div>
@@ -581,7 +577,7 @@
 										<li><i class="ti-mobile"></i> (12) 2128-5200</li>
 										<li><i class="ti-email"></i> puramodasac@gmail.com</li>
 										<li><i class="ti-location-pin"></i> Rua Antônio Fogaça de Almeida, nº 200, Jardim América, Jacareí, SP</li>
-										<li><a href="#"><i class="ti-instagram"></i> Instagram</a></li>
+										<li><a href="https://www.instagram.com/puramoda_ifsp"><i class="ti-instagram"></i> Instagram</a></li>
 									</ul>
 								</div>
 							</div>

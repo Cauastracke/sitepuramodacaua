@@ -673,13 +673,6 @@ textarea {
 /*--------------------------------------------------------------
 ## Links
 --------------------------------------------------------------*/
-a {
-	color: inherit;
-}
-
-a:visited {
-	color: inherit;
-}
 
 a:hover, a:focus, a:active {
 	color: inherit;
