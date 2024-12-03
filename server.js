@@ -91,10 +91,12 @@ app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/login.html');
 });
 
+// Responde a pagina logout
 app.get('/logout', (req, res) => {
   res.sendFile(__dirname + '/logout.html');
 });
 
+// Responde a pagina perfil
 app.get('/perfil', (req, res) => {
   // Check if the user is logged in by checking the session
   if (!req.session.user) {
@@ -214,6 +216,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// logout
 app.post('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -223,6 +226,31 @@ app.post('/logout', (req, res) => {
     res.send({ message: 'Logout bem-sucedido!' });  // Send success message
   });
 });
+
+// adicionar carrinho
+app.post('/addcarrinho', (req, res) => {
+  const { nome, preco, tamanho, quantidade } = req.body;
+
+  if (!req.session.carrinho) {
+    req.session.carrinho = [];  // Initialize cart if it doesn't exist
+  }
+
+  req.session.cart.push({ nome, preco, tamanho, quantidade });
+
+  res.redirect('/carrinho');
+});
+
+app.get('/carrinho', (req, res) => {
+  // Get cart items from session
+  const carrinho = req.session.carrinho || [];
+
+  // Render cart page with cart data
+  res.render('carrinho', { carrinho });
+
+  console.log(carrinho);
+});
+
+
 // // Endpoint to get a user's cart
 // app.get('/users/:id/cart', async (req, res) => {
 //   const userId = req.params.id;
@@ -317,7 +345,8 @@ app.post('/logout', (req, res) => {
 //     res.status(500).json({ error: error.message });
 //   }
 // });
-
-app.listen(PORT, () => {
-  console.log(`servidor rodando na porta http://localhost:${PORT}/`);
+sequelize.sync().then(() => {
+  app.listen(PORT, () => {
+    console.log(`servidor rodando na porta http://localhost:${PORT}/`);
+  });
 });

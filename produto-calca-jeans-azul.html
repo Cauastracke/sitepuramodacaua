@@ -115,18 +115,7 @@
 						</div>
 						<div class="col-lg-8 col-md-7 col-12">
 							<div class="search-bar-top">
-								<div class="search-bar">
-									<select onchange="if (this.value) window.location.href=this.value;">
-										<option value="/produtos" selected="selected">Todos</option>
-										<option value="/categoria-blusa">Blusas</option>
-										<option value="/categoria-jeans">Jeans</option>
-										<option value="/categria-vestido">Vestido</option>
-									</select>
-									<form>
-										<input name="search" placeholder="Procure seus produtos aqui..." type="search">
-										<button class="btnn"><i class="ti-search"></i></button>
-									</form>
-								</div>
+								
 							</div>
 						</div>
 						<div class="col-lg-2 col-md-3 col-12">
@@ -186,10 +175,16 @@
 												<ul class="nav main-menu menu navbar-nav">
 													<li class="active"><a href="/">Home</a>
 													</li>
-													<li><a href='/produtos'>Produtos</a>
-													
+													<li><a href="/produtos">Produtos</a>
 													</li>
-													
+													<li><a href="/produtos">Categorias<i class="ti-angle-down"></i></a>
+														<ul class="dropdown">
+															<li><a href="/categoria-blusa">Blusas</a></li>
+															<li><a href="/categoria-jeans">Jeans</a></li>
+															<li><a href="/categoria-vestido">Vestidos</a></li>
+															<li><a href="/produtos">Todos</a></li>
+														</ul>
+													</li>
 												</ul>
 											</div>
 										</div>
@@ -214,7 +209,8 @@
 						<div class="bread-inner">
 							<ul class="bread-list">
 								<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="/produtos">Produto<i class="ti-arrow-right"></i></a></li>
+								<li class="active"><a href="/produtos">Produtos<i class="ti-arrow-right"></i></a></li>
+								<li class="active"><a href="/categoria-">Jeans<i class="ti-arrow-right"></i></a></li>
 								<li class="active"><a href="/calca-jeans-azul">Calça Jeans Flare</a></li>
 							</ul>
 						</div>
@@ -244,16 +240,16 @@
 										</div>
 										<!-- End Product slider -->
 									</div>
-									<div class="col-lg-6 col-12">
+									<div class="col-lg-6 col-12" id="infoProd">
 										<div class="product-des">
 											<!-- Description -->
 											<div class="short">
-												<h4>Calça Jeans Flare</h4>
+												<h4 id="nome">Calça Jeans Flare</h4>
 												<div class="rating-main">
 													
 												</div>
-												<p class="price"><span class="discount">$139.90</span> </p>
-												<p class="description">Essa calça jeans flare de cintura alta é uma peça versátil que combina com diversos estilos. Ela pode ser usada tanto em produções mais casuais, com camiseta básica e tênis, quanto em looks mais elaborados, com blusas mais sofisticadas e salto alto. A lavagem clara e o efeito desgastado conferem um ar mais despojado, enquanto a modelagem flare adiciona um toque de feminilidade e elegância.</p>
+												<p class="price"><span class="discount" id="preco">R$139.90</span> </p>
+												<p class="description" >Essa calça jeans flare de cintura alta é uma peça versátil que combina com diversos estilos. Ela pode ser usada tanto em produções mais casuais, com camiseta básica e tênis, quanto em looks mais elaborados, com blusas mais sofisticadas e salto alto. A lavagem clara e o efeito desgastado conferem um ar mais despojado, enquanto a modelagem flare adiciona um toque de feminilidade e elegância.</p>
 											</div>
 											<!--/ End Description -->
 											<!-- Tamanho -->
@@ -261,7 +257,7 @@
 												<h4>Tamanho Único</h4>
 												
 												<ul>
-													<li><a class="one">M</a></li>
+													<li><a class="one" id="tamanho">M</a></li>
 												</ul>
 											</div>
 											<!--/ Fima  -->
@@ -275,19 +271,19 @@
 																<i class="ti-minus"></i>
 															</button>
 														</div>
-														<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="1000" value="1">
+														<input type="text" name="quant[1]" class="input-number" data-min="1" data-max="1000" value="1" id="qnt">
 														<div class="button plus">
 															<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
 																<i class="ti-plus"></i>
 															</button>
 														</div>
-													</div>
 													<!--/ End Input Order -->
 												</div>
 												<div class="add-to-cart">
-													<a href="#" class="btn">Adicione no carrinho</a>
+													<button type="submit" class="btn">Adicione no carrinho</button>
 												</div>
 												<p class="cat">Categoria :<a href='/categoria-jeans'>Jeans</a></p>
+												<p id="mensagem"></p>
 											</div>
 											<!--/ End Product Buy -->
 										</div>
@@ -531,5 +527,42 @@
 	<script src="js/easing.js"></script>
 	<!-- Active JS -->
 	<script src="js/active.js"></script>
+
+	<script>
+		document.getElementById('infoProd').addEventListener('submit', function(e) {
+			e.preventDefault();
+
+			var nome = document.getElementById("nome");
+			var preco = document.getElementById("preco");
+			var tamanho = document.getElementById("tamanho");
+			var quantidade = document.getElementById('qnt').value;
+
+			fetch('/addcarrinho', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ nome, preco, tamanho, quantidade })
+			})
+			.then(response => response.json())  // Parse the JSON response
+				.then(data => {
+					if (data.message) {
+						// If the response contains a message (success or failure)
+						document.getElementById('mensagem').innerText = data.message;  // Show the message
+						if (data.message === 'Adicionado ao carrinho!') {
+							window.location.href = '/carrinho';  // redirecionar ao carrinho
+						}
+					}
+				})
+				.catch(error => {
+					document.getElementById('mensagem').innerText = 'Erro ao adicionar ao carrinho:' + error.message;
+				});
+
+	console.log(nome.innerHTML)
+	console.log(preco.innerText)
+	console.log(tamanho.innerHTML)
+	console.log(quantidade);
+});
+	</script>
 </body>
 </html>

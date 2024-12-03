@@ -117,18 +117,7 @@
 						</div>
 						<div class="col-lg-8 col-md-7 col-12">
 							<div class="search-bar-top">
-								<div class="search-bar">
-									<select onchange="if (this.value) window.location.href=this.value;">
-										<option value="/produtos" selected="selected">Todos</option>
-										<option value="/categoria-blusa">Blusas</option>
-										<option value="/categoria-jeans">Jeans</option>
-										<option value="/categria-vestido">Vestido</option>
-									</select>
-									<form>
-										<input name="search" placeholder="Procure seus produtos aqui..." type="search">
-										<button class="btnn"><i class="ti-search"></i></button>
-									</form>
-								</div>
+								
 							</div>
 						</div>
 						<div class="col-lg-2 col-md-3 col-12">
@@ -360,7 +349,7 @@
 						// If the response contains a message (success or failure)
 						document.getElementById('mensagem').innerText = data.message;  // Show the message
 						if (data.message === 'Login bem-sucedido!') {
-							window.location.href = '/perfil';  // Redirect to perfil if login is successful
+							window.location.href = '/';  // Redirect to perfil if login is successful
 						}
 					}
 				})

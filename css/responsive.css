@@ -485,6 +485,7 @@ Version:1.0
 	top: 4px;
 }
 .header.shop .logo {
+	float: left;
 	margin: 0;
 }
 .section{
@@ -1184,6 +1185,7 @@ Version:1.0
 	top: 4px;
 }
 .header.shop .logo {
+	float: left;
 	margin: 0;
 }
 .section{

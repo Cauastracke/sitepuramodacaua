@@ -494,7 +494,6 @@
 	<script src="js/active.js"></script>
 
 	<!-- <script>
-	const sessionId = 'unique-session-id'; // Replace with a unique session identifier
 
 		// Fetch products
 		fetch('http://localhost:3000/produtos')
@@ -546,5 +545,52 @@
 	
 		// Initial cart load
 		fetchCart();</script> -->
+
+		<!-- <script>
+			var test = `<h1>${Produto.name}</h1> <span>${Produto.description}</span> <button onclick="delete_${Produto.ID}">delete</button>`;
+		</script> -->
+		<script>
+			// Function to handle the POST request
+			function sendProductData() {
+			  // Collecting data from the DOM
+			  const productName = document.querySelector('.product-des .product-name a').textContent;
+			  const productDescription = document.querySelector('.product-des .product-des').textContent;
+			  const productPrice = document.querySelector('.price span').textContent;
+			  const productQuantity = document.querySelector('.input-number').value;
+		  
+			  // Creating the payload
+			  const productData = {
+				name: productName.trim(),
+				description: productDescription.trim(),
+				price: parseFloat(productPrice.replace('$', '').trim()),
+				quantity: parseInt(productQuantity, 10),
+			  };
+		  
+			  // Sending a POST request to the backend
+			  fetch('https://your-backend-url.com/api/products', {
+				method: 'POST',
+				headers: {
+				  'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(productData),
+			  })
+				.then((response) => {
+				  if (response.ok) {
+					return response.json();
+				  } else {
+					throw new Error('Failed to send product data');
+				  }
+				})
+				.then((data) => {
+				  console.log('Product sent successfully:', data);
+				})
+				.catch((error) => {
+				  console.error('Error:', error);
+				});
+			}
+		  
+			// Example of adding the function to a button
+			document.querySelector('.btn.btn-primary').addEventListener('click', sendProductData);
+		  </script>
 </body>
 </html>

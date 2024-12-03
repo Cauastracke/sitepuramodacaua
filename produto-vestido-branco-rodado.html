@@ -58,7 +58,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- End Preloader -->
+		<!-- End Preloader -->
 		<!-- Header -->
 		<header class="header shop v2">
 			<!-- Topbar -->
@@ -115,18 +115,7 @@
 						</div>
 						<div class="col-lg-8 col-md-7 col-12">
 							<div class="search-bar-top">
-								<div class="search-bar">
-									<select onchange="if (this.value) window.location.href=this.value;">
-										<option value="/produtos" selected="selected">Todos</option>
-										<option value="/categoria-blusa">Blusas</option>
-										<option value="/categoria-jeans">Jeans</option>
-										<option value="/categria-vestido">Vestido</option>
-									</select>
-									<form>
-										<input name="search" placeholder="Procure seus produtos aqui..." type="search">
-										<button class="btnn"><i class="ti-search"></i></button>
-									</form>
-								</div>
+								
 							</div>
 						</div>
 						<div class="col-lg-2 col-md-3 col-12">
@@ -186,10 +175,16 @@
 												<ul class="nav main-menu menu navbar-nav">
 													<li class="active"><a href="/">Home</a>
 													</li>
-													<li><a href='/produtos'>Produtos</a>
-														
+													<li><a href="/produtos">Produtos</a>
 													</li>
-													
+													<li><a href="/produtos">Categorias<i class="ti-angle-down"></i></a>
+														<ul class="dropdown">
+															<li><a href="/categoria-blusa">Blusas</a></li>
+															<li><a href="/categoria-jeans">Jeans</a></li>
+															<li><a href="/categoria-vestido">Vestidos</a></li>
+															<li><a href="/produtos">Todos</a></li>
+														</ul>
+													</li>
 												</ul>
 											</div>
 										</div>
@@ -213,8 +208,9 @@
 						<div class="bread-inner">
 							<ul class="bread-list">
 								<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href='/produtos'>Produto<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href='/vestido-branco-rodado'>Vestido branco rodado</a></li>
+								<li class="active"><a href='/produtos'>Produtos<i class="ti-arrow-right"></i></a></li>
+								<li class="active"><a href="/categoria-vestidos">Vestidos<i class="ti-arrow-right"></i></a></li>
+								<li class="active"><a href='/vestido-branco-rodado'>Vestido Branco Rodado</a></li>
 							</ul>
 						</div>
 					</div>
@@ -235,8 +231,8 @@
 											<!-- Fotos roupa -->
 											<div class="flexslider-thumbnails">
 												<ul class="slides">
-													<li data-thumb="images/vestido-branco.jpg" rel="adjustX:10, adjustY:">
-														<img src="images/vestido-branco.jpg" alt="#">
+													<li data-thumb="images/vestido.png" rel="adjustX:10, adjustY:">
+														<img src="images/vestido.png" alt="#">
 												</ul>
 											</div>
 											<!-- Fim fotos roupa -->
@@ -286,7 +282,7 @@
 												<div class="add-to-cart">
 													<a href="#" class="btn">Adicione no carrinho</a>
 												</div>
-												<p class="cat">Categoria :<a href='/categoria-vestidos'>Vestido</a></p>
+												<p class="cat">Categoria :<a href='/categoria-vestidos'>Vestidos</a></p>
 											</div>
 											<!--/ End Product Buy -->
 										</div>

@@ -119,18 +119,7 @@
 						</div>
 						<div class="col-lg-8 col-md-7 col-12">
 							<div class="search-bar-top">
-								<div class="search-bar">
-									<select onchange="if (this.value) window.location.href=this.value;">
-										<option value="/produtos" selected="selected">Todos</option>
-										<option value="/categoria-blusa">Blusas</option>
-										<option value="/categoria-jeans">Jeans</option>
-										<option value="/categoria-vestido">Vestido</option>
-									</select>
-									<form>
-										<input name="search" placeholder="Procure seus produtos aqui..." type="search">
-										<button class="btnn"><i class="ti-search"></i></button>
-									</form>
-								</div>
+								
 							</div>
 						</div>
 						<div class="col-lg-2 col-md-3 col-12">
@@ -191,9 +180,15 @@
 													<li class="active"><a href="/">Home</a>
 													</li>
 													<li><a href="/produtos">Produtos</a>
-														
 													</li>
-													
+													<li><a href="/produtos">Categorias<i class="ti-angle-down"></i></a>
+														<ul class="dropdown">
+															<li><a href="/categoria-blusa">Blusas</a></li>
+															<li><a href="/categoria-jeans">Jeans</a></li>
+															<li><a href="/categoria-vestido">Vestidos</a></li>
+															<li><a href="/produtos">Todos</a></li>
+														</ul>
+													</li> 
 												</ul>
 											</div>
 										</div>
@@ -216,8 +211,11 @@
 					<div class="col-12">
 						<div class="bread-inner">
 							<ul class="bread-list">
-								<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="/produtos">Produtos</a></li>
+								<ul class="bread-list">
+									<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
+									<li class="active"><a href="/produtos">Produtos<i class="ti-arrow-right"></i></a></li>
+									<li class="active"><a href="/cropped-de-amarracao">Vestidos</a></li>
+								</ul>
 							</ul>
 						</div>
 					</div>
@@ -291,7 +289,7 @@
 										</a>
 									</div>
 									<div class="product-content">
-										<h3><a href='/vestido-rosa'>Vestido Rosa de Alça</a></h3>
+										<h3><a href='/vestido-rosa'>Vestido Rosa</a></h3>
 										<div class="product-price">
 											<span class="old">R$79.00</span>
                                             <span>R$60.00</span>

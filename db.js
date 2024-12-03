@@ -39,7 +39,13 @@ const Clientes = sequelize.define('Clientes', {
   });
 
   // Pegando Tabela Produto para Sequelize
-const Produtos = sequelize.define('Produtos', {
+  const Produtos = sequelize.define('Produtos', {
+    ProdutoID: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true,
+    },
     Nome: {
       type: DataTypes.STRING,
       allowNull: false,
