@@ -74,11 +74,23 @@ const Carrinhos = sequelize.define('Carrinhos', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  Quantidade: {
+  ClienteID: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },    
+    Nome: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-  ClienteID: {
+    Preco: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    Tamanho: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    Quantidade: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -86,15 +98,29 @@ const Carrinhos = sequelize.define('Carrinhos', {
 
 // Pegando Tabela CarrinhoItems para Sequelize
 const CarrinhoItems = sequelize.define('CarrinhoItems', {
-  ProdutoID: {
+  CarrinhoItemsID: {
     type: DataTypes.INTEGER,
+    autoIncrement: true,
     allowNull: false,
+    primaryKey: true,
   },
-  Quantidade: {
+  ClienteID: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-  ClienteID: {
+    nome: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    preco: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    tamanho: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    quantidade: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -248,6 +274,7 @@ module.exports = {
     Clientes,
     Produtos,
     Carrinhos,
+    CarrinhoItems,
     Pedidos,
     PedidoProds,
     testConnection,

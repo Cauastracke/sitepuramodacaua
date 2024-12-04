@@ -112,52 +112,52 @@
 							</div>
 							<!--/ End Search Form -->
 							<div class="mobile-nav"></div>
+					</div>
+					<div class="col-lg-8 col-md-7 col-12">
+						<div class="search-bar-top">
+							<img src="/images/frasepng.png">
 						</div>
-						<div class="col-lg-8 col-md-7 col-12">
-							<div class="search-bar-top">
-								
+					</div>
+					<div class="col-lg-2 col-md-3 col-12">
+						<div class="right-bar">
+							<!-- Search Form -->
+							<div class="sinlge-bar">
+								<a href="/login" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
 							</div>
-						</div>
-						<div class="col-lg-2 col-md-3 col-12">
-							<div class="right-bar">
-								<!-- Search Form -->
-								<div class="sinlge-bar">
-									<a href="/login" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-								</div>
-								<div class="sinlge-bar shopping">
-									<a href="/carrinho" class="single-icon"><i class="ti-shopping-cart"></i> <span class="total-count">2</span></a>
-									<!-- Shopping Item -->
-									<div class="shopping-item">
-										<div class="dropdown-cart-header">
-											<span>2 Items</span>
-											<a href="/carrinho">Carrinho</a>
-										</div>
-										<ul class="shopping-list">
-											<li>
-												<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-												<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-												<h4><a href="#">Woman Ring</a></h4>
-												<p class="quantity">1x - <span class="amount">$99.00</span></p>
-											</li>
-											<li>
-												<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-												<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-												<h4><a href="#">Woman Necklace</a></h4>
-												<p class="quantity">1x - <span class="amount">$35.00</span></p>
-											</li>
-										</ul>
-										<div class="bottom">
-											<div class="total">
-												<span>Total</span>
-												<span class="total-amount">$134.00</span>
-											</div>
-											<a href="/checkout" class="btn animate">Checkout</a>
-										</div>
+							<div class="sinlge-bar shopping">
+								<a href="/carrinho" class="single-icon"><i class="ti-shopping-cart"></i> <span class="total-count">2</span></a>
+								<!-- Shopping Item -->
+								<div class="shopping-item">
+									<div class="dropdown-cart-header">
+										<span>2 Items</span>
+										<a href="/carrinho">Carrinho</a>
 									</div>
-									<!--/ End Shopping Item -->
+									<ul class="shopping-list">
+										<li>
+											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
+											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
+											<h4><a href="#">Woman Ring</a></h4>
+											<p class="quantity">1x - <span class="amount">$99.00</span></p>
+										</li>
+										<li>
+											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
+											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
+											<h4><a href="#">Woman Necklace</a></h4>
+											<p class="quantity">1x - <span class="amount">$35.00</span></p>
+										</li>
+									</ul>
+									<div class="bottom">
+										<div class="total">
+											<span>Total</span>
+											<span class="total-amount">$134.00</span>
+										</div>
+										<a href="/checkout" class="btn animate">Checkout</a>
+									</div>
 								</div>
+								<!--/ End Shopping Item -->
 							</div>
 						</div>
+					
 					</div>
 				</div>
 			</div>
@@ -240,15 +240,15 @@
 										</div>
 										<!-- End Product slider -->
 									</div>
-									<div class="col-lg-6 col-12" id="infoProd">
-										<div class="product-des">
+									<div class="col-lg-6 col-12">
+										<form class="product-des" id="infoProd">
 											<!-- Description -->
 											<div class="short">
 												<h4 id="nome">Calça Jeans Flare</h4>
 												<div class="rating-main">
 													
 												</div>
-												<p class="price"><span class="discount" id="preco">R$139.90</span> </p>
+												<p class="price"><span class="discount">R$</span><span class="discount" id="preco">139.90</span> </p>
 												<p class="description" >Essa calça jeans flare de cintura alta é uma peça versátil que combina com diversos estilos. Ela pode ser usada tanto em produções mais casuais, com camiseta básica e tênis, quanto em looks mais elaborados, com blusas mais sofisticadas e salto alto. A lavagem clara e o efeito desgastado conferem um ar mais despojado, enquanto a modelagem flare adiciona um toque de feminilidade e elegância.</p>
 											</div>
 											<!--/ End Description -->
@@ -286,7 +286,7 @@
 												<p id="mensagem"></p>
 											</div>
 											<!--/ End Product Buy -->
-										</div>
+										</form>
 									</div>
 								</div>
 								<div class="row">
@@ -532,10 +532,12 @@
 		document.getElementById('infoProd').addEventListener('submit', function(e) {
 			e.preventDefault();
 
-			var nome = document.getElementById("nome");
-			var preco = document.getElementById("preco");
-			var tamanho = document.getElementById("tamanho");
+			var nome = document.getElementById("nome").innerHTML;
+			var preco = document.getElementById("preco").innerHTML;
+			var tamanho = document.getElementById("tamanho").innerHTML;
 			var quantidade = document.getElementById('qnt').value;
+
+    		console.log("Nome:", nome, "Preço:", preco, "Tamanho:", tamanho, "Quantidade:", quantidade);
 
 			fetch('/addcarrinho', {
 				method: 'POST',
@@ -545,24 +547,20 @@
 				body: JSON.stringify({ nome, preco, tamanho, quantidade })
 			})
 			.then(response => response.json())  // Parse the JSON response
-				.then(data => {
-					if (data.message) {
-						// If the response contains a message (success or failure)
-						document.getElementById('mensagem').innerText = data.message;  // Show the message
-						if (data.message === 'Adicionado ao carrinho!') {
-							window.location.href = '/carrinho';  // redirecionar ao carrinho
-						}
+			.then(data => {
+				if (data.message) {
+					console.log(data.message);
+					// If the response contains a message (success or failure)
+					document.getElementById('mensagem').innerText = data.message;  // Show the message
+					if (data.message === 'Adicionado ao carrinho!') {
+						window.location.href = '/carrinho';  // redirecionar ao carrinho
 					}
-				})
-				.catch(error => {
-					document.getElementById('mensagem').innerText = 'Erro ao adicionar ao carrinho:' + error.message;
-				});
-
-	console.log(nome.innerHTML)
-	console.log(preco.innerText)
-	console.log(tamanho.innerHTML)
-	console.log(quantidade);
-});
+				}
+			})
+			.catch(error => {
+				document.getElementById('mensagem').innerText = 'Erro ao adicionar ao carrinho:' + error.message;
+			});
+		});
 	</script>
 </body>
 </html>

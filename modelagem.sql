@@ -1,17 +1,6 @@
 CREATE DATABASE puramoda;
 USE puramoda;
 
-CREATE TABLE Clientes (
-    ClienteID INT AUTO_INCREMENT PRIMARY KEY,
-    CarrinhoID INT,
-    Nome VARCHAR(100) NOT NULL,
-    Email VARCHAR(100) NOT NULL UNIQUE,
-    Senha VARCHAR(20) NOT NULL,
-    Celular VARCHAR(20) NOT NULL,
-    Endereco VARCHAR(100) NOT NULL
-     FOREIGN KEY (CarrinhoID) REFERENCES Carrinhos(CarrinhoID),
-);
-
 CREATE TABLE Produtos (
     ProdutoID INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
@@ -21,28 +10,38 @@ CREATE TABLE Produtos (
     Preco DECIMAL(10, 2) NOT NULL
 );
 
-CREATE TABLE Cupoms (
-    CupomID INT AUTO_INCREMENT PRIMARY KEY,
-    Cupom VARCHAR(100) NOT NULL UNIQUE
-);
-
 CREATE TABLE Carrinhos (
     CarrinhoID INT AUTO_INCREMENT PRIMARY KEY,
     ProdutoID INT,
     ClienteID INT,
-    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID),
-    FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID)
+    Nome VARCHAR(100),
+    Preco FLOAT,
+    Tamanho VARCHAR(4),
+    Quantidade INT
+);
+
+CREATE TABLE Clientes (
+    ClienteID INT AUTO_INCREMENT PRIMARY KEY,
+    CarrinhoID INT,
+    Nome VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    Senha VARCHAR(20) NOT NULL,
+    Celular VARCHAR(20) NOT NULL,
+    Endereco VARCHAR(100) NOT NULL,
+    FOREIGN KEY (CarrinhoID) REFERENCES Carrinhos(CarrinhoID),
+    UNIQUE (CarrinhoID)
 );
 
 CREATE TABLE CarrinhoItems (
     CarrinhoItemsID INT AUTO_INCREMENT PRIMARY KEY,
-    CarrinhoID INT,
-    ProdutoID INT,
-    Quantidade INT NOT NULL,
-    FOREIGN KEY (CarrinhoID) REFERENCES Carrinhos(CarrinhoID) ON DELETE CASCADE,
-    FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID) ON DELETE CASCADE,
-    UNIQUE (CarrinhoID, ProdutoID)
+    ClienteID INT,
+    nome VARCHAR(100) NOT NULL,
+    preco DECIMAL(10, 2) NOT NULL,
+    tamanho VARCHAR(100) NOT NULL,
+    quantidade INT,
+    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID) ON DELETE CASCADE
 );
+
 
 CREATE TABLE `Pedidos` (
     PedidoID INT AUTO_INCREMENT PRIMARY KEY,

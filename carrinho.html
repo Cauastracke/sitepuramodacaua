@@ -109,62 +109,49 @@
 								</div>
 								<!--/ Fim pesquisar -->
 								<div class="mobile-nav"></div>
+					</div>
+					<div class="col-lg-8 col-md-7 col-12">
+						<div class="search-bar-top">
+							<img src="/images/frasepng.png">
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-3 col-12">
+						<div class="right-bar">
+							<!-- Search Form -->
+							<div class="sinlge-bar">
+								<a href="/login" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
 							</div>
-							<div class="col-lg-8 col-md-7 col-12">
-								<div class="search-bar-top">
-									<div class="search-bar">
-										<select onchange="if (this.value) window.location.href=this.value;">
-											<option value="/produtos" selected="selected">Todos</option>
-											<option value="/categoria-blusa">Blusas</option>
-											<option value="/categoria-jeans">Jeans</option>
-											<option value="/categria-vestido">Vestido</option>
-										</select>
-										<form>
-											<input name="search" placeholder="Procure seus produtos aqui..." type="search">
-											<button class="btnn"><i class="ti-search"></i></button>
-										</form>
+							<div class="sinlge-bar shopping">
+								<a href="/carrinho" class="single-icon"><i class="ti-shopping-cart"></i> <span class="total-count">2</span></a>
+								<!-- Shopping Item -->
+								<div class="shopping-item">
+									<div class="dropdown-cart-header">
+										<span>2 Items</span>
+										<a href="/carrinho">Carrinho</a>
 									</div>
-								</div>
-							</div>
-							<div class="col-lg-2 col-md-3 col-12">
-								<div class="right-bar">
-									<!-- Search Form -->
-									<div class="sinlge-bar">
-										<a href="/login" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-									</div>
-									<div class="sinlge-bar shopping">
-										<a href="/carrinho" class="single-icon"><i class="ti-shopping-cart"></i> <span class="total-count">2</span></a>
-										<!-- Shopping Item -->
-										<div class="shopping-item">
-											<div class="dropdown-cart-header">
-												<span>2 Items</span>
-												<a href="/carrinho">Carrinho</a>
-											</div>
-											<ul class="shopping-list">
-												<li>
-													<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-													<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-													<h4><a href="#">Woman Ring</a></h4>
-													<p class="quantity">1x - <span class="amount">$99.00</span></p>
-												</li>
-												<li>
-													<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-													<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-													<h4><a href="#">Woman Necklace</a></h4>
-													<p class="quantity">1x - <span class="amount">$35.00</span></p>
-												</li>
-											</ul>
-											<div class="bottom">
-												<div class="total">
-													<span>Total</span>
-													<span class="total-amount">$134.00</span>
-												</div>
-												<a href="/checkout" class="btn animate">Checkout</a>
-											</div>
+									<ul class="shopping-list">
+										<li>
+											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
+											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
+											<h4><a href="#">Woman Ring</a></h4>
+											<p class="quantity">1x - <span class="amount">$99.00</span></p>
+										</li>
+										<li>
+											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
+											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
+											<h4><a href="#">Woman Necklace</a></h4>
+											<p class="quantity">1x - <span class="amount">$35.00</span></p>
+										</li>
+									</ul>
+									<div class="bottom">
+										<div class="total">
+											<span>Total</span>
+											<span class="total-amount">$134.00</span>
 										</div>
-										<!--/ End Shopping Item -->
+										<a href='/checkout' class="btn animate">Checkout</a>
 									</div>
 								</div>
+								<!--/ End Shopping Item -->
 							</div>
 						</div>
 					</div>
@@ -342,7 +329,7 @@
 										<li class="last">Total<span>$310.00</span></li>
 									</ul>
 									<div class="button5">
-										<a href="#" class="btn">Checkout</a>	
+										<a href='/checkout' class="btn">Checkout</a>	
 									</div>
 								</div>
 							</div>
@@ -549,48 +536,5 @@
 		<!-- <script>
 			var test = `<h1>${Produto.name}</h1> <span>${Produto.description}</span> <button onclick="delete_${Produto.ID}">delete</button>`;
 		</script> -->
-		<script>
-			// Function to handle the POST request
-			function sendProductData() {
-			  // Collecting data from the DOM
-			  const productName = document.querySelector('.product-des .product-name a').textContent;
-			  const productDescription = document.querySelector('.product-des .product-des').textContent;
-			  const productPrice = document.querySelector('.price span').textContent;
-			  const productQuantity = document.querySelector('.input-number').value;
-		  
-			  // Creating the payload
-			  const productData = {
-				name: productName.trim(),
-				description: productDescription.trim(),
-				price: parseFloat(productPrice.replace('$', '').trim()),
-				quantity: parseInt(productQuantity, 10),
-			  };
-		  
-			  // Sending a POST request to the backend
-			  fetch('https://your-backend-url.com/api/products', {
-				method: 'POST',
-				headers: {
-				  'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(productData),
-			  })
-				.then((response) => {
-				  if (response.ok) {
-					return response.json();
-				  } else {
-					throw new Error('Failed to send product data');
-				  }
-				})
-				.then((data) => {
-				  console.log('Product sent successfully:', data);
-				})
-				.catch((error) => {
-				  console.error('Error:', error);
-				});
-			}
-		  
-			// Example of adding the function to a button
-			document.querySelector('.btn.btn-primary').addEventListener('click', sendProductData);
-		  </script>
 </body>
 </html>
