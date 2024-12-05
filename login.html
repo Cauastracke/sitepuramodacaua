@@ -125,7 +125,7 @@
 						<div class="right-bar">
 							<!-- Search Form -->
 							<div class="sinlge-bar">
-								<a href="/login" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+								<a href="/perfil" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
 							</div>
 							<div class="sinlge-bar shopping">
 								<a href="/carrinho" class="single-icon"><i class="ti-shopping-cart"></i></a>
@@ -316,13 +316,12 @@
 					},
 					body: JSON.stringify({ Email, Senha })
 				})
-				.then(response => response.json())  // Parse the JSON response
+				.then(response => response.json())  // Parse JSON
 				.then(data => {
 					if (data.message) {
-						// If the response contains a message (success or failure)
-						document.getElementById('mensagem').innerText = data.message;  // Show the message
+						document.getElementById('mensagem').innerText = data.message;  // mensagem
 						if (data.message === 'Login bem-sucedido!') {
-							window.location.href = '/';  // Redirect to perfil if login is successful
+							window.location.href = '/';  // redirecionar a home se bem sucedido
 						}
 					}
 				})

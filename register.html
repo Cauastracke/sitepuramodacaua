@@ -123,7 +123,7 @@
 						<div class="right-bar">
 							<!-- Search Form -->
 							<div class="sinlge-bar">
-								<a href="/login" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+								<a href="/perfil" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
 							</div>
 							<div class="sinlge-bar shopping">
 								<a href="/carrinho" class="single-icon"><i class="ti-shopping-cart"></i></a>
@@ -181,7 +181,7 @@
 					<div class="col-12">
 						<div class="bread-inner">
 							<ul class="bread-list">
-								<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+								<li><a href="/">Home<i class="ti-arrow-right"></i></a></li>
 								<li class="active"><a href='/register'>Registro</a></li>
 							</ul>
 						</div>
@@ -357,10 +357,10 @@
 	document.getElementById('celular').addEventListener('input', function(e) {
     let value = e.target.value;
 
-    // Remove any non-numeric characters
+    // remover caracteres nao numericos
     value = value.replace(/\D/g, '');
 
-    // Apply mask: 00 00000-0000
+    // mascara telefone
     if (value.length <= 2) {
         value = value.replace(/(\d{2})/, '$1');
     } else if (value.length <= 7) {
@@ -369,7 +369,6 @@
         value = value.replace(/(\d{2})(\d{5})(\d{4})/, '$1 $2-$3');
     }
 
-    // Update the input value with the formatted phone number
     e.target.value = value;
 	});
 </script>

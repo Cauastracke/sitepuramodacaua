@@ -119,7 +119,7 @@
 						<div class="right-bar">
 							<!-- Search Form -->
 							<div class="sinlge-bar">
-								<a href="/login" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+								<a href="/perfil" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
 							</div>
 							<div class="sinlge-bar shopping">
 								<a href="/carrinho" class="single-icon"><i class="ti-shopping-cart"></i></a>
@@ -377,7 +377,7 @@
         // Fetch Cart Items from the API
         async function loadCartItems() {
             try {
-                const response = await fetch('/api/carrinho'); // Call the API endpoint
+                const response = await fetch('/api/carrinho');
                 if (!response.ok) {
                     throw new Error('Failed to fetch cart items');
                 }
@@ -387,7 +387,7 @@
         		let total = 0;
 
                 const cartItemsContainer = document.getElementById('cart-items');
-                cartItemsContainer.innerHTML = ''; // Clear loading message
+                cartItemsContainer.innerHTML = ''; // limpar mensagem de carregar
 
                 if (cartItems.length === 0) {
                     cartItemsContainer.innerHTML = '<tr><td colspan="6">Sem items no carrinho.</td></tr>';
@@ -447,7 +447,7 @@
 				headers: {
 					'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ CarrinhoItemsID: itemId }),  // Make sure this matches the expected field in the backend
+			body: JSON.stringify({ CarrinhoItemsID: itemId }),
 			});
 
 			if (!response.ok) {
@@ -455,7 +455,7 @@
 				throw new Error('Falha ao remover');
 			}
 
-			// Reload the cart after item is removed
+			// reiniciar o carrinho apos remover o item
 			loadCartItems();
 		} catch (error) {
 			console.error('Error removing item:', error);
@@ -463,13 +463,13 @@
 		}
 	}
 
-		// Load cart items on page load
+		// carregar items
 		document.addEventListener('DOMContentLoaded', loadCartItems);
     </script>
 
 	<script>
 		document.getElementById('finalizarCompra').addEventListener('click', async function(event) {
-    event.preventDefault(); // Prevent the default navigation
+    event.preventDefault();
 
     try {
         const response = await fetch('/api/carrinho/clear', {
@@ -477,7 +477,7 @@
         });
 
         if (response.ok) {
-            window.location.href = '/checkout'; // Redirect to checkout page
+            window.location.href = '/checkout'; // Redirecionar ao checkout
         } else {
             alert('Houve um erro ao limpar o carrinho. Por favor, tente novamente.');
         }

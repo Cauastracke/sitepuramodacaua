@@ -232,8 +232,8 @@ app.post('/logout', (req, res) => {
     if (err) {
       return res.status(500).send({ message: 'Erro ao fazer logout.' });
     }
-    res.clearCookie('connect.sid');  // Clear session cookie
-    res.send({ message: 'Logout bem-sucedido!' });  // Send success message
+    res.clearCookie('connect.sid');  // limpar cookies
+    res.send({ message: 'Logout bem-sucedido!' });  // mensagem de sucesso
   });
 });
 
@@ -272,7 +272,7 @@ app.post('/addcarrinho', async (req, res) => {
         }
 
         const cartItems = await CarrinhoItems.findAll({ where: { ClienteID } });
-        res.json(cartItems); // Send cart items as JSON
+        res.json(cartItems); // mandar items do carrinho como json
     } catch (error) {
         console.error('Erro ao carregar itens do carrinho:', error);
         res.status(500).json({ message: 'Erro ao carregar o carrinho.' });
@@ -288,20 +288,20 @@ app.delete('/api/carrinho', async (req, res) => {
     console.log('Request body:', req.body);
     console.log('Item ID:', CarrinhoItemsID);
 
-    // Find the item index based on the ID
+    // encontrar o item baseado no item
     const itemIndex = cartItems.findIndex(item => item.CarrinhoItemsID === parseInt(CarrinhoItemsID));
     console.log(itemIndex);
 
-    // If item not found, return 404
+    // se não encontrado retornar erro
     if (itemIndex === -1) {
         return res.status(404).json({ message: "Item não encontrado" });
     }
-      // Remove the item from the array
+      // Remover item do carrinho
       cartItems.splice(itemIndex, 1);
 
       await CarrinhoItems.destroy({ where: { CarrinhoItemsID } });
 
-      // Respond with a success message or the updated cart
+      // responder com uma mensagem, remocao do item
       res.status(200).json({ message: "Item removido com sucesso", cartItems });
       } catch (error) {
         console.error('Erro ao carregar itens do carrinho:', error);
@@ -311,13 +311,13 @@ app.delete('/api/carrinho', async (req, res) => {
 
   app.delete('/api/carrinho/clear', async (req, res) => {
     try {
-      const ClienteID = req.session.user.id; // Get the authenticated user's ID
+      const ClienteID = req.session.user.id; // pegar clienteid
   
       if (!ClienteID) {
         return res.status(401).json({ message: "Usuário não autenticado." });
       }
   
-      // Delete all items in the cart for the ClienteID
+      // remover os items do clienteid
       await CarrinhoItems.destroy({ where: { ClienteID } });
   
       res.status(200).json({ message: "Todos os itens foram removidos do carrinho." });
@@ -345,7 +345,7 @@ app.delete('/api/carrinho', async (req, res) => {
           Email: user.Email,
           Nome: user.Nome,
           Celular: user.Celular,
-          Endereco: user.Endereco, // Include any additional information if needed
+          Endereco: user.Endereco,
         });
     } catch (error) {
         console.error('Erro ao buscar informações do perfil:', error);

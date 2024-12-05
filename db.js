@@ -102,9 +102,9 @@ const CarrinhoItems = sequelize.define('CarrinhoItems', {
   (async () => {
     try {
         await sequelize.authenticate();
-        console.log('Connection to the database has been established successfully.');
+        console.log('Conectado ao banco de dados!');
     } catch (error) {
-        console.error('Unable to connect to the database:', error);
+        console.error('Erro ao conectar ao banco de dados:', error);
     }
 })();
 

@@ -133,12 +133,12 @@
 		function logout() {
 			fetch('/logout', {
 			  method: 'POST',
-			  credentials: 'include'  // Include cookies with the request
+			  credentials: 'include'  // incluir cookies no request
 			})
 			.then(response => response.json())
 			.then(data => {
 			  if (data.message === 'Logout bem-sucedido!') {
-				window.location.href = '/login'; // Redirect to login after successful logout
+				window.location.href = '/login'; // redirecionar ao login depois do logout
 			  }
 			})
 			.catch(error => {
