@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const { Clientes, CarrinhoItems, Carrinhos, testConnection, syncDatabase, sequelize } = require('./db');
+const { Clientes, CarrinhoItems, testConnection, syncDatabase, sequelize } = require('./db');
 
 const app = express();
 const PORT = 3000;
@@ -16,6 +16,7 @@ const sessionStore = new SequelizeStore({
 // Configura o middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.text());
 app.use(express.static(path.join(__dirname)));
 app.use(express.static('public'));
 app.use(express.json());
@@ -224,6 +225,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
+
 // logout
 app.post('/logout', (req, res) => {
   req.session.destroy((err) => {
@@ -235,18 +237,12 @@ app.post('/logout', (req, res) => {
   });
 });
 
-
-app.get('/carrinho', (req, res) => {
-  const carrinho = req.session.Carrinhos || []; // Garante que o carrinho exista
-
-  res.render('carrinho', { Carrinhos: carrinho }); // Renderiza o carrinho na página
-});
-
 // adicionar carrinho
 app.post('/addcarrinho', async (req, res) => {
     try {
-      const { nome, preco, tamanho, quantidade } = req.body;
+      const { nome, preco, tamanho, quantidade, imgLink } = req.body;
       const ClienteID = req.session.user.id;
+      const img = imgLink || '';
       console.log('ClienteID:', ClienteID);
 
       if (!ClienteID) {
@@ -254,9 +250,9 @@ app.post('/addcarrinho', async (req, res) => {
     }
 
       req.session.Carrinhos = req.session.Carrinhos || [];
-      req.session.Carrinhos.push({ nome, preco, tamanho, quantidade });
+      req.session.Carrinhos.push({ nome, preco, tamanho, quantidade, img });
 
-      const CartItems = await CarrinhoItems.create({ nome, preco, tamanho, quantidade, ClienteID });
+      const CartItems = await CarrinhoItems.create({ nome, preco, tamanho, quantidade, img, ClienteID });
 
       res.status(200).send({ message: 'Adicionado ao carrinho!'});
 
@@ -266,50 +262,97 @@ app.post('/addcarrinho', async (req, res) => {
       }
   });
 
-app.post('/removercarrinho', (req, res) => {
-  const { index } = req.body; // O índice do item a ser removido
+  app.get('/api/carrinho', async (req, res) => {
+    try {
+        const ClienteID = req.session.user.id;
+        console.log(ClienteID);
 
-  if (req.session.Carrinho && req.session.Carrinho[index]) {
-    req.session.Carrinho.splice(index, 1); // Remove o item pelo índice
-  }
+        if (!ClienteID) {
+            return res.status(401).json({ message: 'Usuário não autenticado' });
+        }
 
-  res.redirect('/carrinho');
+        const cartItems = await CarrinhoItems.findAll({ where: { ClienteID } });
+        res.json(cartItems); // Send cart items as JSON
+    } catch (error) {
+        console.error('Erro ao carregar itens do carrinho:', error);
+        res.status(500).json({ message: 'Erro ao carregar o carrinho.' });
+    }
 });
 
-// // Endpoint to add an item to the user's cart (optional)
-// app.post('/users/:id/cart/items', async (req, res) => {
-//   const userId = req.params.id;
-//   const { quantity, price } = req.body;
-//   try {
-//     const user = await User.findByPk(userId);
+app.delete('/api/carrinho', async (req, res) => {
+  try {
+    const { CarrinhoItemsID } = req.body; // pegar id do carrinho
+    const ClienteID = req.session.user.id;
+    const cartItems = await CarrinhoItems.findAll({ where: { ClienteID } });
+    console.log(cartItems);
+    console.log('Request body:', req.body);
+    console.log('Item ID:', CarrinhoItemsID);
 
-//     if (!user) {
-//       return res.status(404).json({ error: 'User not found' });
-//     }
+    // Find the item index based on the ID
+    const itemIndex = cartItems.findIndex(item => item.CarrinhoItemsID === parseInt(CarrinhoItemsID));
+    console.log(itemIndex);
 
-//     let cart = await user.getCart();
+    // If item not found, return 404
+    if (itemIndex === -1) {
+        return res.status(404).json({ message: "Item não encontrado" });
+    }
+      // Remove the item from the array
+      cartItems.splice(itemIndex, 1);
 
-//     if (!cart) {
-//       cart = await Cart.create({ userId: user.id });
-//     }
+      await CarrinhoItems.destroy({ where: { CarrinhoItemsID } });
 
-//     // Add item to the cart
-//     const cartItem = await CartItem.create({
-//       quantity,
-//       price,
-//       cartId: cart.id,
-//     });
+      // Respond with a success message or the updated cart
+      res.status(200).json({ message: "Item removido com sucesso", cartItems });
+      } catch (error) {
+        console.error('Erro ao carregar itens do carrinho:', error);
+        res.status(500).json({ message: 'Erro ao carregar o carrinho.' });
+    }
+  });
 
-//     // Update cart's totalItems and totalPrice
-//     cart.totalItems += quantity;
-//     cart.totalPrice += price * quantity;
-//     await cart.save();
+  app.delete('/api/carrinho/clear', async (req, res) => {
+    try {
+      const ClienteID = req.session.user.id; // Get the authenticated user's ID
+  
+      if (!ClienteID) {
+        return res.status(401).json({ message: "Usuário não autenticado." });
+      }
+  
+      // Delete all items in the cart for the ClienteID
+      await CarrinhoItems.destroy({ where: { ClienteID } });
+  
+      res.status(200).json({ message: "Todos os itens foram removidos do carrinho." });
+    } catch (error) {
+      console.error('Erro ao limpar o carrinho:', error);
+      res.status(500).json({ message: "Erro ao limpar o carrinho." });
+    }
+  });
 
-//     res.status(201).json(cartItem);
-//   } catch (error) {
-//     res.status(400).json({ error: 'Error adding item to cart', details: error.message });
-//   }
-// });
+  app.get('/api/profile', async (req, res) => {
+    try {
+        if (!req.session.user) {
+            return res.status(401).json({ message: 'Usuário não autenticado' });
+        }
+
+        const ClienteID = req.session.user.id;
+        const user = await Clientes.findOne({ where: { ClienteID } });
+        console.log(user)
+
+        if (!user) {
+            return res.status(404).json({ message: 'Usuário não encontrado' });
+        }
+
+        res.json({
+          Email: user.Email,
+          Nome: user.Nome,
+          Celular: user.Celular,
+          Endereco: user.Endereco, // Include any additional information if needed
+        });
+    } catch (error) {
+        console.error('Erro ao buscar informações do perfil:', error);
+        res.status(500).json({ message: 'Erro interno do servidor' });
+    }
+});
+
 sequelize.sync().then(() => {
   app.listen(PORT, () => {
     console.log(`servidor rodando na porta http://localhost:${PORT}/`);

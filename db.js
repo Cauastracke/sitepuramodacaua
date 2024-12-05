@@ -38,36 +38,6 @@ const Clientes = sequelize.define('Clientes', {
       },
   });
 
-  // Pegando Tabela Produto para Sequelize
-  const Produtos = sequelize.define('Produtos', {
-    ProdutoID: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      allowNull: false,
-      primaryKey: true,
-    },
-    Nome: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    Descricao: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      Tipo: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-    Tamanho: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-    Preco: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-    },
-});
-
 // Pegando Tabela Carrinho para Sequelize
 const Carrinhos = sequelize.define('Carrinhos', {
   ProdutoID: {
@@ -124,121 +94,10 @@ const CarrinhoItems = sequelize.define('CarrinhoItems', {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    img: {
+      type: DataTypes.STRING,
+    },
 });
-
-// Pegando Tabela Pedido para Sequelize
-const Pedidos = sequelize.define('Pedidos', {
-    PedidoID: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false
-    },
-    ClienteID: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Clientes', // Name of the related table
-        key: 'ClienteID'
-      },
-      onDelete: 'CASCADE'
-    },
-    CarrinhoID: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Carrinho', // Name of the related table
-        key: 'CarrinhoID'
-      },
-      onDelete: 'CASCADE'
-    },
-    CupomID: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Cupom', // Name of the related table
-        key: 'CupomID'
-      },
-      onDelete: 'CASCADE'
-    },
-    Data: {
-      type: DataTypes.DATEONLY, // Using DATEONLY for the date format (YYYY-MM-DD)
-      allowNull: false
-    },
-    Total: {
-      type: DataTypes.DECIMAL(10, 2),
-      allowNull: false
-    }
-  });
-  
-  // Optionally, you can set up associations with other models, e.g.:
-  Pedidos.associate = (models) => {
-    Pedido.belongsTo(models.Clientes, {
-      foreignKey: 'ClienteID',
-      onDelete: 'CASCADE'
-    });
-    Pedidos.belongsTo(models.Carrinhos, {
-      foreignKey: 'CarrinhoID',
-      onDelete: 'CASCADE'
-    });
-    Pedidos.belongsTo(models.Cupoms, {
-      foreignKey: 'CupomID',
-      onDelete: 'CASCADE'
-    });
-  };
-
-  // Pegando Tabela PedidoProd para Sequelize
-  const PedidoProds = sequelize.define('PedidoProds', {
-    PedidoID: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true, // Part of the composite primary key
-      references: {
-        model: 'Pedido', // Name of the related table
-        key: 'PedidoID'
-      },
-      onDelete: 'CASCADE'
-    },
-    ProdutoID: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true, // Part of the composite primary key
-      references: {
-        model: 'Produto', // Name of the related table
-        key: 'ProdutoID'
-      },
-      onDelete: 'CASCADE'
-    },
-    CarrinhoID: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Carrinho', // Name of the related table
-        key: 'CarrinhoID'
-      },
-      onDelete: 'CASCADE'
-    },
-    Quantidade: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    }
-  });
-  
-  // Optionally, define associations between `PedidoProd` and other models:
-  PedidoProds.associate = (models) => {
-    PedidoProds.belongsTo(models.Pedidos, {
-      foreignKey: 'PedidoID',
-      onDelete: 'CASCADE'
-    });
-    PedidoProds.belongsTo(models.Produtos, {
-      foreignKey: 'ProdutoID',
-      onDelete: 'CASCADE'
-    });
-    PedidoProds.belongsTo(models.Carrinhos, {
-      foreignKey: 'CarrinhoID',
-      onDelete: 'CASCADE'
-    });
-  };
 
   (async () => {
     try {
@@ -272,17 +131,8 @@ async function syncDatabase() {
 module.exports = {
     sequelize,
     Clientes,
-    Produtos,
     Carrinhos,
     CarrinhoItems,
-    Pedidos,
-    PedidoProds,
     testConnection,
     syncDatabase
 };
-
-Clientes.hasOne(Carrinhos);
-Carrinhos.belongsTo(Clientes);
-Carrinhos.hasMany(CarrinhoItems);
-CarrinhoItems.belongsTo(Carrinhos);
-CarrinhoItems.belongsTo(Produtos)

@@ -240,14 +240,14 @@
 										<!-- End Product slider -->
 									</div>
 									<div class="col-lg-6 col-12">
-										<div class="product-des">
+										<form class="product-des" id="infoProd">
 											<!-- Description -->
 											<div class="short">
-												<h4>Cropped de manga longa</h4>
+												<h4 id="nome">Cropped de manga longa</h4>
 												<div class="rating-main">
 													
 												</div>
-												<p class="price"><span class="discount">R$59.90</span><s>R$80.00</s> </p>
+												<p class="price"><span class="discount">R$</span><span class="discount" id="preco">59.90</span><s>R$80.00</s> </p>
 												<p class="description">Blusa cropped preta de manga longa com design assimétrico e recortes estratégicos, perfeita para looks ousados e modernos. Ideal para quem busca estilo e sofisticação em uma única peça.</p>
 											</div>
 											<!--/ End Description -->
@@ -256,7 +256,7 @@
 												<h4>Tamanho Único</h4>
 												
 												<ul>
-													<li><a class="one">M</a></li>
+													<li><a class="one" id="tamanho">M</a></li>
 												</ul>
 											</div>
 											<!--/ Fima  -->
@@ -270,22 +270,24 @@
 																<i class="ti-minus"></i>
 															</button>
 														</div>
-														<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="1000" value="1">
+														<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="1000" value="1" id="qnt">
 														<div class="button plus">
 															<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
 																<i class="ti-plus"></i>
 															</button>
 														</div>
 													</div>
+													<img src="images/cropped-frio-preto.jpg" id="img" alt="#" hidden>
 													<!--/ End Input Order -->
 												</div>
 												<div class="add-to-cart">
-													<a href="#" class="btn">Adicione no carrinho</a>
+													<button type="submit" class="btn">Adicione no carrinho</button>
 												</div>
 												<p class="cat">Categoria :<a href='/categoria-blusa'>Blusas</a></p>
+												<p id="mensagem"></p>
 											</div>
 											<!--/ End Product Buy -->
-										</div>
+										</form>
 									</div>
 								</div>
 								<div class="row">
@@ -526,5 +528,43 @@
 	<script src="js/easing.js"></script>
 	<!-- Active JS -->
 	<script src="js/active.js"></script>
+	<script>
+		document.getElementById('infoProd').addEventListener('submit', function(e) {
+			e.preventDefault();
+
+			var img = document.getElementById("img");
+			var nome = document.getElementById("nome").innerHTML;
+			var preco = document.getElementById("preco").innerHTML;
+			var tamanho = document.getElementById("tamanho").innerHTML;
+			var quantidade = document.getElementById('qnt').value;
+
+			console.log(img.src)
+			const imgLink = img.src
+
+    		console.log("Nome:", nome, "Preço:", preco, "Tamanho:", tamanho, "Quantidade:", quantidade, "img:", imgLink);
+
+			fetch('/addcarrinho', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ nome, preco, tamanho, quantidade, imgLink })
+			})
+			.then(response => response.json())  // Parse the JSON response
+			.then(data => {
+				if (data.message) {
+					console.log(data.message);
+					// If the response contains a message (success or failure)
+					document.getElementById('mensagem').innerText = data.message;  // Show the message
+					if (data.message === 'Adicionado ao carrinho!') {
+						window.location.href = '/carrinho';  // redirecionar ao carrinho
+					}
+				}
+			})
+			.catch(error => {
+				document.getElementById('mensagem').innerText = 'Erro ao adicionar ao carrinho:' + error.message;
+			});
+		});
+	</script>
 </body>
 </html>

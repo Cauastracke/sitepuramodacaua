@@ -1,15 +1,6 @@
 CREATE DATABASE puramoda;
 USE puramoda;
 
-CREATE TABLE Produtos (
-    ProdutoID INT AUTO_INCREMENT PRIMARY KEY,
-    Nome VARCHAR(100) NOT NULL,
-    Descricao VARCHAR(255) NOT NULL,
-    Tipo VARCHAR(20),
-    Tamanho VARCHAR(4) NOT NULL,
-    Preco DECIMAL(10, 2) NOT NULL
-);
-
 CREATE TABLE Carrinhos (
     CarrinhoID INT AUTO_INCREMENT PRIMARY KEY,
     ProdutoID INT,
@@ -38,35 +29,7 @@ CREATE TABLE CarrinhoItems (
     nome VARCHAR(100) NOT NULL,
     preco DECIMAL(10, 2) NOT NULL,
     tamanho VARCHAR(100) NOT NULL,
-    quantidade INT,
+    quantidade INT NOT NULL,
+    img VARCHAR(200),
     FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID) ON DELETE CASCADE
 );
-
-
-CREATE TABLE `Pedidos` (
-    PedidoID INT AUTO_INCREMENT PRIMARY KEY,
-    ClienteID INT,
-    CarrinhoID INT,
-    CupomID INT,
-    Data DATE NOT NULL,
-    Total DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID) ON DELETE CASCADE,
-    FOREIGN KEY (CarrinhoID) REFERENCES Carrinhos(CarrinhoID) ON DELETE CASCADE,
-    FOREIGN KEY (CupomID) REFERENCES Cupoms(CupomID) ON DELETE CASCADE
-);
-
-CREATE TABLE PedidoProds (
-    PedidoID INT,
-    ProdutoID INT,
-    CarrinhoID INT,
-    Quantidade INT NOT NULL,
-    PRIMARY KEY (PedidoID, ProdutoID),
-    FOREIGN KEY (PedidoID) REFERENCES `Pedidos`(PedidoID) ON DELETE CASCADE,
-    FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID) ON DELETE CASCADE,
-    FOREIGN KEY (CarrinhoID) REFERENCES Carrinhos(CarrinhoID) ON DELETE CASCADE
-);
-
-
-
-INSERT INTO Produtos(Nome, Descricao, Tipo, Tamanho, Preco) VALUES
-('Calça azul', 'Teste', 'Calça', 'M', 59.99);

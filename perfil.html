@@ -136,36 +136,8 @@
 								<a href="/login" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
 							</div>
 							<div class="sinlge-bar shopping">
-								<a href="/carrinho" class="single-icon"><i class="ti-shopping-cart"></i> <span class="total-count">2</span></a>
-								<!-- Shopping Item -->
-								<div class="shopping-item">
-									<div class="dropdown-cart-header">
-										<span>2 Items</span>
-										<a href="/carrinho">Carrinho</a>
-									</div>
-									<ul class="shopping-list">
-										<li>
-											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-											<h4><a href="#">Woman Ring</a></h4>
-											<p class="quantity">1x - <span class="amount">$99.00</span></p>
-										</li>
-										<li>
-											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-											<h4><a href="#">Woman Necklace</a></h4>
-											<p class="quantity">1x - <span class="amount">$35.00</span></p>
-										</li>
-									</ul>
-									<div class="bottom">
-										<div class="total">
-											<span>Total</span>
-											<span class="total-amount">$134.00</span>
-										</div>
-										<a href="/checkout" class="btn animate">Checkout</a>
-									</div>
-								</div>
-								<!--/ End Shopping Item -->
+								<a href="/carrinho" class="single-icon"><i class="ti-shopping-cart"></i></a>
+								
 							</div>
 						</div>
 					</div>
@@ -234,37 +206,25 @@
 								<div class="row">
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
-											<label>Nome</label>
-											<input type="text" name="name" placeholder="">
+											<p><strong>Nome:</strong> <span id="profile-nome">Carregando...</span></p>
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
-											<label>Sobrenome</label>
-											<input type="text" name="name" placeholder="">
+											<p><strong>Email:</strong> <span id="profile-email">Carregando...</span></p>
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
-											<label>Endereço</label>
-											<input type="text" name="endereco" placeholder="">
+											<p><strong>Celular:</strong> <span id="profile-celular">Carregando...</span></p>
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
-											<label>Estado</label>
-											<select name="state-province" id="state-province">
-												<option value="divition" selected="selected">AC</option>
-												<option>AL</option>
-												<option>AP</option>
-												<option>Houston</option>
-												<option>San Diego</option>
-												<option>Dallas</option>
-												<option>Charlotte</option>
-											</select>
+											<p><strong>Endereço:</strong> <span id="profile-endereco">Carregando...</span></p>
 										</div>
 									</div>
-									<div class="col-lg-6 col-md-6 col-12">
+									<div class="col-lg-20 col-md-10 col-12">
 										<div class="form-group">
 											<a href="/logout" class="btn">Logout</a>
 										</div>
@@ -356,4 +316,27 @@
 	<script src="js/easing.js"></script>
 	<!-- Active JS -->
 	<script src="js/active.js"></script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('/api/profile'); // Fetch profile data
+        if (!response.ok) {
+            throw new Error('Erro ao carregar o perfil.');
+        }
+
+        const data = await response.json();
+
+        // Update the HTML with the email and name
+        document.getElementById('profile-email').textContent = data.Email;
+		document.getElementById('profile-celular').textContent = data.Celular;
+		document.getElementById('profile-endereco').textContent = data.Endereco;
+        document.getElementById('profile-nome').textContent = data.Nome || 'Não informado';
+    } catch (error) {
+        console.error('Erro ao carregar informações do perfil:', error);
+        document.getElementById('profile-email').textContent = 'Erro ao carregar';
+        document.getElementById('profile-nome').textContent = 'Erro ao carregar';
+    }
+});
+	</script>
 </html>
